@@ -29,7 +29,7 @@ for c in try_again # ["ITA", "GRC"]
         continue
     end      
 
-    target = drs_gains[c] / 100
+    target = irs_gains[c] / 100
 
     # Read Undirected Graph
     edges = CSV.read("data/grid_network/country/$(c)_edges.csv", DataFrame)
@@ -58,9 +58,9 @@ for c in try_again # ["ITA", "GRC"]
     # Create Infrastructure Matrix: Following Graff (2024) = average speed in km/h: length of route is accounted for in cost function
     infra_matrix = zeros(n, n)
     for i in 1:size(edges, 1)
-        infra_matrix[edges.from[i], edges.to[i]] = infra_matrix[edges.to[i], edges.from[i]] = edges.speed_kmh[i]
+        infra_matrix[edges.from[i], edges.to[i]] = infra_matrix[edges.to[i], edges.from[i]] = edges.time_efficiency[i] # edges.speed_kmh[i]
     end
-    println(describe(edges.speed_kmh))
+    println(describe(edges.time_efficiency))
 
     # Create Iceberg Trade Cost Matrix. Graff (2024): 0.1158826 * log(edges.distance[i] / 1.609)
     iceberg_matrix = zeros(n, n)
@@ -101,10 +101,10 @@ for c in try_again # ["ITA", "GRC"]
     K_ctry = 0.0
     for i in 1:size(edges, 1)
         if edges.is_buff[i]
-            min_mask[edges.from[i], edges.to[i]] = min_mask[edges.to[i], edges.from[i]] = edges.speed_kmh[i]
-            max_mask[edges.from[i], edges.to[i]] = max_mask[edges.to[i], edges.from[i]] = edges.speed_kmh[i]
+            min_mask[edges.from[i], edges.to[i]] = min_mask[edges.to[i], edges.from[i]] = edges.time_efficiency[i]
+            max_mask[edges.from[i], edges.to[i]] = max_mask[edges.to[i], edges.from[i]] = edges.time_efficiency[i]
         else
-            K_ctry += 2 * edges.cost_kmh[i] * edges.speed_kmh[i]
+            K_ctry += 2 * edges.cost_kmh[i] * edges.time_efficiency[i]
         end
     end 
     # sum((infra_building_matrix .* infra_matrix)[.!nodes.is_buff, .!nodes.is_buff])
@@ -140,7 +140,7 @@ for c in try_again # ["ITA", "GRC"]
     graph[:delta_tau] = iceberg_matrix;
 
     # Naming conventions: if IRS -> "cgc_irs" or "irs_na" without annealing; if alpha = 0.1 -> add "_alpha01"; if with_ports = false -> add "_noport"; if frictions -> add "_bc" (border cost)
-    filename = "$(c)_Mrealloc_fixed_sigma38_rho0" # adjust if sigma != 1.5
+    filename = "$(c)_Mrealloc_fixed_irs_sigma38_rho0" # adjust if sigma != 1.5
     println("File extension: $filename")
 
     # Recommended to use coin HSL linear solvers. See README of OptimalTransportNetworks.jl and Ipopt.jl
@@ -217,6 +217,6 @@ end
 nam = ["K", "K_base", "K_ctry", "PercInc", "WgainPerc", "TargetPerc"]
 df = DataFrame(hcat([Kres[key] for key in keys(Kres)]...)', nam)
 df.iso3c .= keys(Kres)
-CSV.write("results/grid_network/ALL_Mrealloc_fixed_sigma38_rho0.csv", df)
+CSV.write("results/grid_network/ALL_Mrealloc_fixed_irs_sigma38_rho0.csv", df)
 histogram(df.PercInc, bins=15)
 
