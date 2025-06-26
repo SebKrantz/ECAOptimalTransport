@@ -26,7 +26,7 @@
 
 
 \title{\textbf{Spatial Road Network Misallocation and Optimal Expansion in Europe and Central Asia}}
-\author{Sebastian Krantz}
+\author{Sebastian Krantz and Ana Cusolito}
 
 \begin{document}
 \maketitle
@@ -66,7 +66,8 @@ Figure \ref{fig:Realloc} shows the welfare gains from the optimal reallocation o
  \centering
  \caption{\label{fig:Realloc} Welfare Gains from Optimal Reallocation of National Road Networks}
  \vspace{-3mm}
- \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_realloc_barchart_both_decomp.pdf"} %trim={<left> <lower> <right> <upper>}
+ % \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_realloc_barchart_both_decomp.pdf"} %trim={<left> <lower> <right> <upper>}
+ \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_realloc_barchart_both_decomp_nograd.pdf"} %trim={<left> <lower> <right> <upper>}
  \\ \vspace{3mm}
  \begin{adjustbox}{center}
  \begin{tabular}{cc}
@@ -102,7 +103,8 @@ The analysis overall thus suggests that European and particularly Central Asian 
  \centering
  \caption{\label{fig:10pExp} Welfare Gains from Optimal 10\% Expansion of National Road Networks}
   \vspace{-3mm}
- \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_10perc_barchart_both.pdf"} %trim={<left> <lower> <right> <upper>}
+ % \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_10perc_barchart_both.pdf"} %trim={<left> <lower> <right> <upper>}
+ \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_10perc_barchart_both_decomp_nograd.pdf"}
  \\ \vspace{3mm}
  \begin{adjustbox}{center}
  \begin{tabular}{cc}
@@ -115,6 +117,22 @@ The analysis overall thus suggests that European and particularly Central Asian 
  \end{figure}
 
 \noindent central links connecting major urban centers. This is not a consequence of the IR ($\gamma > \beta$) assumption leading to more tree-like networks as described by \citet{fajgelbaum2020optimal}; the results under DR ($\gamma < \beta$) are very similar and thus not shown. 
+
+\subsection*{Expansion Matching Reallocation Gains}
+
+Rather than computing an ad-hoc 10\% optimal network expansion and evaluating the welfare gains of to each country, we can also approximately solve for the network expansion needed to match the welfare gains from an optimal reallocation of the existing network. Figure \ref{fig:MRealloc} shows the results, which are surprisingly similar across the IRS and DRS (black bars) scenarios, ranging from a 17.3\% to a 40.8\% network expansion needed to reach the gains from optimal reallocation.
+
+ \begin{figure}[H] % \vspace{-1mm}
+ \centering
+ \caption{\label{fig:MRealloc} Increase in Infrastructure Stock to Match Optimal Reallocation Gains}
+ \vspace{-3mm}
+ % \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_realloc_barchart_both_decomp.pdf"} %trim={<left> <lower> <right> <upper>}
+ \includegraphics[width=\textwidth]{"../figures/ECA_grid_network_Mrealloc_barchart_both_nograd.pdf"} %trim={<left> <lower> <right> <upper>}
+ \end{figure}
+
+ 
+The correlation with the optimal reallocation gains is 0.42 under IRS and 0.31 under DRS, indicating that countries with a less optimal allocation of infrastructure also need to spend more to 'fix it'. In the median country, the infrastructure investment needed is 81.4 times larger than the welfare gains from reallocation (both in percentage terms), indicating that it is costly to fix welfare losses from past misallocation with new investments. 
+
 
 
 \subsection*{Optimal Investments in ECA's Transport Network}
