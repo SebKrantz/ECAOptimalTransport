@@ -105,7 +105,7 @@ dist$cents_per_ton_km <- exp(4.650 - 0.395 * log(dist$distances / dist$durations
                              0.064 * log(dist$distances / 1000) + 
                              0.024 * outer(ECA_centroids$countrycode, ECA_centroids$countrycode, "!="))
 diag(dist$cents_per_ton_km) <- 0
-dist$dollars_per_ton <- dist$cents_per_ton_km * dist$distances / 10000
+dist$dollars_per_ton <- dist$cents_per_ton_km * dist$distances / 1e5
 
 descr(vec(set_diag(dist$cents_per_ton_km, NA)))
 descr(vec(set_diag(dist$dollars_per_ton, NA)))
@@ -119,7 +119,7 @@ dist$cents_per_ton_km_g70kmh <- exp(4.650 - 0.395 * log(pmax(70, dist$distances 
                                     0.064 * log(dist$distances / 1000) + 
                                     0.024 * outer(ECA_centroids$countrycode, ECA_centroids$countrycode, "!="))
 diag(dist$cents_per_ton_km_g70kmh) <- 0
-dist$dollars_per_ton_g70kmh <- dist$cents_per_ton_km_g70kmh * dist$distances / 10000
+dist$dollars_per_ton_g70kmh <- dist$cents_per_ton_km_g70kmh * dist$distances / 1e5
 
 descr(vec(set_diag(dist$cents_per_ton_km_g70kmh, NA)))
 descr(vec(set_diag(dist$dollars_per_ton_g70kmh, NA)))
@@ -129,7 +129,7 @@ descr(vec(set_diag(dist$dollars_per_ton_g70kmh, NA)))
 dist$cents_per_ton_km_no_border <- exp(4.650 - 0.395 * log(dist$distances / dist$durations * 60 / 1000) - 
                                        0.064 * log(dist$distances / 1000))
 diag(dist$cents_per_ton_km_no_border) <- 0
-dist$dollars_per_ton_no_border <- dist$cents_per_ton_km_no_border * dist$distances / 10000
+dist$dollars_per_ton_no_border <- dist$cents_per_ton_km_no_border * dist$distances / 1e5
 
 descr(vec(set_diag(dist$cents_per_ton_km_no_border, NA)))
 descr(vec(set_diag(dist$dollars_per_ton_no_border, NA)))
@@ -231,7 +231,7 @@ dist$cents_net_ext_per_ton_km <- exp(4.650 - 0.395 * log(dist$distances_net_ext 
                                      0.064 * log(dist$distances_net_ext / 1000) + 
                                      0.024 * outer(ECA_centroids$countrycode, ECA_centroids$countrycode, "!="))
 diag(dist$cents_net_ext_per_ton_km) <- 0
-dist$dollars_net_ext_per_ton <- dist$cents_net_ext_per_ton_km * dist$distances_net_ext / 10000
+dist$dollars_net_ext_per_ton <- dist$cents_net_ext_per_ton_km * dist$distances_net_ext / 1e5
 
 descr(vec(set_diag(dist$cents_net_ext_per_ton_km, NA)))
 descr(vec(set_diag(dist$dollars_net_ext_per_ton, NA)))
@@ -241,7 +241,7 @@ descr(vec(set_diag(dist$dollars_net_ext_per_ton, NA)))
 dist$cents_net_ext_per_ton_km_no_border <- exp(4.650 - 0.395 * log(dist$distances_net_ext / dist$durations_net_ext * 60 / 1000) - 
                                                0.064 * log(dist$distances_net_ext / 1000))
 diag(dist$cents_net_ext_per_ton_km_no_border) <- 0
-dist$dollars_net_ext_per_ton_no_border <- dist$cents_net_ext_per_ton_km_no_border * dist$distances_net_ext / 10000
+dist$dollars_net_ext_per_ton_no_border <- dist$cents_net_ext_per_ton_km_no_border * dist$distances_net_ext / 1e5
 
 descr(vec(set_diag(dist$cents_net_ext_per_ton_km_no_border, NA)))
 descr(vec(set_diag(dist$dollars_net_ext_per_ton_no_border, NA)))
@@ -413,7 +413,7 @@ dist$cents_mc_per_ton_km <- exp(4.650 - 0.395 * log(dist$distances_mc / dist$dur
                                 0.064 * log(dist$distances_mc / 1000) + 
                                 0.024 * outer(ECA_centroids$countrycode, ECA_centroids$countrycode, "!="))
 diag(dist$cents_mc_per_ton_km) <- 0
-dist$dollars_mc_per_ton <- dist$cents_mc_per_ton_km * dist$distances_mc / 10000
+dist$dollars_mc_per_ton <- dist$cents_mc_per_ton_km * dist$distances_mc / 1e5
 
 descr(vec(set_diag(dist$cents_mc_per_ton_km, NA)))
 descr(vec(set_diag(dist$dollars_mc_per_ton, NA)))
@@ -423,7 +423,7 @@ descr(vec(set_diag(dist$dollars_mc_per_ton, NA)))
 dist$cents_mc_per_ton_km_no_border <- exp(4.650 - 0.395 * log(dist$distances_mc / dist$durations_mc * 60 / 1000) - 
                                           0.064 * log(dist$distances_mc / 1000))
 diag(dist$cents_mc_per_ton_km_no_border) <- 0
-dist$dollars_mc_per_ton_no_border <- dist$cents_mc_per_ton_km_no_border * dist$distances_mc / 10000
+dist$dollars_mc_per_ton_no_border <- dist$cents_mc_per_ton_km_no_border * dist$distances_mc / 1e5
 
 descr(vec(set_diag(dist$cents_mc_per_ton_km_no_border, NA)))
 descr(vec(set_diag(dist$dollars_mc_per_ton_no_border, NA)))
