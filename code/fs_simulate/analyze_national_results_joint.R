@@ -7,9 +7,10 @@ set_collapse(mask = c("manip", "helper", "special"))
 fastverse_extend(qs, sf, units, sfnetworks, tmap, ggplot2, install = TRUE)
 fastverse_conflicts()
 
-files <- list.files("results/grid_network/country", pattern = "_realloc_") |> 
+files <- list.files("results/grid_network/country", pattern = "_10perc_") |> 
   grep(pattern = "_irs_", invert = TRUE, value = TRUE) |> 
-  grep(pattern = "_ann_", value = TRUE, invert = TRUE)
+  grep(pattern = "_ann_", value = TRUE, invert = TRUE) |>
+  grep(pattern = "_ug_", value = TRUE, invert = TRUE)
 countries <- substr(files, 15, 17) |> unique()
 setdiff(unique(substr(list.files("data/grid_network/country"), 1, 3)), countries)
 
@@ -40,6 +41,60 @@ results$edges |> sapply(with, table(Ijk-Ijk_orig > 1)) # |> proportions()
 
 # Work Intensity (intensive margin = km/h added)
 results$edges |> sapply(with, fmedian((Ijk-Ijk_orig)[Ijk-Ijk_orig > 1])) |> sort()
+
+# Examining percentage on infra links on edges between urban centers -----------------------------------------------------------------
+
+# Ana: When discussing the reasons behind sub-optimal investments, I would like us to think if we can come with a systematic measure 
+# of the percentage of peripheral investments relative to intercity ones. Visually the root of the problem is clear. But we need to think 
+# about formalizing it more. I have a couple of ideas. Let’s talk next week. 
+
+compute_cent_edges <- function(nodes, edges) {
+  
+  nodes$big_city <- nodes$product > 5 # $pop_cell > quantile(nodes$pop_cell, 0.75)
+  
+  g <- cppRouting::makegraph(edges |> select(from, to, cost = duration))
+  mp <- expand.grid(o = which(nodes$big_city), d = which(nodes$big_city)) |> subset(o != d)
+  paths <- cppRouting::get_multi_paths(g, mp$o, mp$d, long = TRUE) |> unique()
+  paths$id <- group(paths$from, paths$to)
+  paths <- roworder(paths, id)
+  paths$from <- paths$node
+  paths$to <- flag(paths$node, -1, g = paths$id)
+  paths <- na_omit(paths)
+  
+  edg <- unique(fmatch(select(paths, from, to), select(edges, from, to)))
+  edg2 <- unique(fmatch(select(paths, to, from), select(edges, from, to)))
+  unique(na_rm(c(edg, edg2))) |> as.integer() |> sort()
+}
+
+compute_cent_edges_perc <- function(nodes, edges) {
+  
+  mpe <- compute_cent_edges(nodes, edges)
+  
+  tot_realloc <- (edges[["Ijk"]] - edges[["Ijk_orig"]]) * edges$distance
+  
+  # This is the percentage devoted to important links.
+  200 * sum(abs(tot_realloc[mpe])) / sum(abs(tot_realloc))
+  
+}
+
+cent_edges_perc <- sapply(countries, function(c) {
+
+  nodes <- results$nodes[[c]]
+  edges <- results$edges[[c]]
+  
+  compute_cent_edges_perc(nodes, edges)
+
+  
+})
+
+cent_edges_perc |> round(2) |> sort()
+
+# cent_edges_results <- list()
+cent_edges_results$`10perc_fixed` <- cent_edges_perc
+cent_edges_results_df <- unlist2d(cent_edges_results, "spec") |> 
+  transpose(make.names = 1, keep.names = "country")
+
+writexl::write_xlsx(cent_edges_results_df, "results/grid_network/ALL_cent_edges_perc.xlsx")
 
 
 # Statistics on the economic gains -----------------------------------------------------------------
@@ -317,6 +372,35 @@ result <- Mrealloc |>
 result |> 
   writexl::write_xlsx("results/grid_network/ALL_Mrealloc_table.xlsx")
 
+# Excursus: Database of control characteristics at the country level
+
+countries <- unique(substr(list.files("data/grid_network/country"), 1, 3))
+data <- sapply(countries, function(x) {
+  list(nodes = fread(sprintf("data/grid_network/country/%s_nodes.csv", x)),
+       edges = fread(sprintf("data/grid_network/country/%s_edges.csv", x)))       
+}, simplify = FALSE)
+
+results <- data |> lapply(function(x) {
+  x$nodes |> subset(!is_buff) |> 
+    summarise(GDP = fsum(predicted_GCP_const_2017_PPP),
+              POP = fsum(pop_cell),
+              GDPCap = fmean(cell_GDPC_const_2017_PPP, w = pop_cell), 
+              rugg = fmean(rugg), 
+              rugg_wavg = fmean(rugg, w = pop_cell),
+              pop_wpop_km2 = fmean(pop_wpop_km2), 
+              cost_kmh = fmean(cost_kmh),
+              cost_kmh_wavg = fmean(cost_kmh, w = pop_cell),
+              own_product = fsum(own_product)) |> 
+add_vars(
+  x$edges |> mutate(gravity = x$nodes$pop_cell[from] * x$nodes$pop_cell[to] / sp_distance) |> 
+    subset(!is_buff) |> 
+    summarise(across(c(distance, duration, speed_kmh, route_efficiency, time_efficiency), fmean),
+              across(c(distance, duration, speed_kmh, route_efficiency, time_efficiency), 
+                     list(wavg = fmean), w = gravity, .names = TRUE))
+)
+}) |> rowbind(idcol = "iso3c")
+
+results |> fwrite("results/grid_network/control_dataset.csv")
 
 
 # Country Plots --------------------------------------------------------------------------------------------
@@ -326,8 +410,11 @@ t_res <- t_list(results)
 extra_countries = ""
 
 save_plot = TRUE
-outfolder = "figures/grid_network/realloc_fixed"
-qualifier = "realloc"
+outfolder = "figures/grid_network/10perc_fixed_ce"
+qualifier = "10pf"
+
+country_names <- countrycode::countrycode(names(t_res), "iso3c", "country.name.en") |> replace_na("Kosovo")
+names(country_names) <- names(t_res)
 
 for (country in names(t_res)) {
   
@@ -363,18 +450,24 @@ for (country in names(t_res)) {
   I_diff_q <- quantile(I_diff[!edges$is_buff], seq(0, 1, 1/10)) # seq(0, 1, 1/9)
   I_diff_col <- cut(I_diff[!edges$is_buff], I_diff_q, include.lowest = TRUE)
   
-  for (graph in "opt") { # c("stat", "opt")) 
+  for (graph in "cent") { # c("stat", "opt")) 
     # Scale
     if (graph == "opt") {
       edges[!edges$is_buff, "color"] <- cols4all::c4a("matplotlib.seismic", 16)[unclass(I_diff_col)+3L+sum(I_diff_q > 0)-5L] # RColorBrewer::brewer.pal(9, "YlOrRd")[I_diff_col]
       outcomes[!outcomes$is_buff, "color"] <- viridis::turbo(26, direction = 1)[unclass(outcomes$zetacol[!outcomes$is_buff])+3L]
-    } else {
+    } else if (graph == "stat") {
       outcomes[!outcomes$is_buff, "color"] <- "dodgerblue4"
+    } else { 
+      outcomes[!outcomes$is_buff, "color"] <- "dodgerblue4"
+      mpe <- compute_cent_edges(nodes, edges)
+      edges[!edges$is_buff, "color"] <- "grey30"
+      edges[mpe, "color"] <- "red3"
+      I_cent_scaled <- I_opt_scaled
     }
     
     if(save_plot) pdf(file = paste(outfolder, "/", country, "_", graph, "_", qualifier, ".pdf", sep = ""), width = 15, height = 11)
     
-    plot(outcomes$pwx, outcomes$pwy, main = wgains_df$country[ckmatch(country, wgains_df$iso3c)], bty = "n", 
+    plot(outcomes$pwx, outcomes$pwy, main = country_names[country], bty = "n", 
          pch = ifelse(!outcomes$is_buff, 19, 1), axes = F, 
          ylab = "", xlab = "", asp = 1, type = "n") # if you want to plot it
     
@@ -398,19 +491,6 @@ for (country in names(t_res)) {
            col = ifelse(outcomes$different_good[!outcomes$is_buff] == 1, "white", NA), 
            cex = outcomes$pop_scaled[!outcomes$is_buff])
     
-    # adding a color key just for the DRC so we don't crowd the other graphs
-    if (country == "Democratic-Republic-of-the-Congo" & graph == "opt") {
-      lgd_ <- rep(NA, 19)
-      lgd_[whichlabels] <- rev(round(mbr[whichlabels], 3))
-      legend(
-        x = 12.21455, y = 5.381389,
-        legend = lgd_,
-        fill = rev(rocket(20)),
-        border = NA,
-        y.intersp = 0.5,
-        cex = 1.3, text.font = 1, bty = "n"
-      )
-    }
     
     if(save_plot) dev.off()
   }
