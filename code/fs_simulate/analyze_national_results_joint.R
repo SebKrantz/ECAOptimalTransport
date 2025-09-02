@@ -7,7 +7,7 @@ set_collapse(mask = c("manip", "helper", "special"))
 fastverse_extend(qs, sf, units, sfnetworks, tmap, ggplot2, install = TRUE)
 fastverse_conflicts()
 
-files <- list.files("results/grid_network/country", pattern = "_10perc_") |> 
+files <- list.files("results/grid_network/country", pattern = "_sigma2_") |> 
   grep(pattern = "_irs_", invert = TRUE, value = TRUE) |> 
   grep(pattern = "_ann_", value = TRUE, invert = TRUE) |>
   grep(pattern = "_ug_", value = TRUE, invert = TRUE)
@@ -151,6 +151,12 @@ wgains_df <- janitor::clean_names(welfare) |>
   mutate(country = countrycode::countrycode(iso3c, "iso3c", "country.name.en") |> 
            replace_na("Kosovo") |> qF(sort = FALSE))
 
+# Export 
+wgains_df |> 
+  colorder(iso3c, country) |> 
+  writexl::write_xlsx("results/grid_network/welfare_gains_sigma2_irs.xlsx")
+
+# Plot
 wgains_df |> 
   ggplot(aes(x = wgain, y = country, fill = wgain)) +
     geom_bar(stat = "identity") +
@@ -400,8 +406,45 @@ add_vars(
 )
 }) |> rowbind(idcol = "iso3c")
 
-results |> fwrite("results/grid_network/control_dataset.csv")
+setrelabel(results, 
+  GDP = "GDP (PPP, 2017 constant US$)",
+  POP = "Population (millions)",
+  GDPCap = "GDP per Capita (PPP, 2017 constant US$)",
+  rugg = "Ruggedness (mean)",
+  rugg_wavg = "Ruggedness (weighted mean)",
+  pop_wpop_km2 = "Population Density (people per km²)",
+  cost_kmh = "Cost per km/h (mean)",
+  cost_kmh_wavg = "Cost per km/h (weighted mean)",
+  own_product = "Own Product (sum) (number of cities producing a unique product)",
+  distance = "Distance (mean)",
+  duration = "Duration (mean)",
+  speed_kmh = "Speed (mean)",
+  route_efficiency = "Route Efficiency (mean)",
+  time_efficiency = "Time Efficiency (mean)",
+  distance_wavg = "Distance (gravity weighted mean)",
+  duration_wavg = "Duration (gravity weighted mean)",
+  speed_kmh_wavg = "Speed (gravity weighted mean)",
+  route_efficiency_wavg = "Route Efficiency (gravity weighted mean)",
+  time_efficiency_wavg = "Time Efficiency (gravity weighted mean)"
+)
 
+# Add other data
+results <- fread("results/grid_network/control_dataset.csv")
+
+data <- am_data(ctry = results$iso3c, 
+                series = c("AG_LND_TOTL_K2", "LP_LPI_OVRL_XQ", "LP_LPI_INFR_XQ",
+                           "IC_BUS_EASE_DFRN_XQ_DB1719", "TRD_ACRS_BRDR_DB1619_DFRN")) |> 
+        collap( ~ ISO3, flast, cols = is.numeric) 
+
+results %<>% join(data, on = c("iso3c" = "ISO3"))
+
+results |> fwrite("results/grid_network/control_dataset.csv")
+results |> haven::write_dta("results/grid_network/control_dataset.dta")
+
+# Adding consolidate data
+cons_data <- haven::read_dta("misc/Consolidated and control data.dta")
+cons_data |> join(results, on = c("iso3" = "iso3c"), drop = "x") |> View()
+  haven::write_dta("results/grid_network/consolidated_and_control_dataset.dta")
 
 # Country Plots --------------------------------------------------------------------------------------------
 
