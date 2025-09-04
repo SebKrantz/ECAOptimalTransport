@@ -373,6 +373,37 @@ tm_basemap("CartoDB.Positron", zoom = 5) +
   tm_layout(frame = FALSE) 
 dev.off()
 
+# Before
+pdf("figures/ECA_centroids_network_actual_discretized_speed_EWTM.pdf", width = 17, height = 7)
+tm_basemap("Esri.WorldTopoMap", zoom = 6) +
+  tm_shape(mutate(edges_real, speed_kmh = distance / duration * 60)) +
+  tm_lines(col = "speed_kmh",
+           col.scale = tm_scale_continuous(5, values = "turbo"),
+           col.legend = tm_legend("Speed in km/h", position = c("left", "top"), frame = FALSE, 
+                                  text.size = 1, title.size = 1.2, margins = c(0, -0.5, 0, 0),
+                                  title.padding = c(0, 0, -0.5, 0), 
+                                  item.space = 0, item.height = 2, item.width = 0.5)) +
+  tm_shape(subset(nodes, key_city)) + tm_dots(size = 0.2) +
+  tm_shape(subset(nodes, !key_city)) + tm_dots(size = 0.1, fill = "grey70") +
+  tm_layout(frame = FALSE) #, inner.margins = c(0.1, 0.1, 0.1, 0.1))
+dev.off()
+
+# Counterfactual
+pdf("figures/ECA_centroids_network_actual_discretized_speed_g70kmh_EWTM.pdf", width = 17, height = 7)
+tm_basemap("Esri.WorldTopoMap", zoom = 6) +
+  tm_shape(mutate(edges_real, speed_kmh = pmax(70, distance / duration * 60))) +
+  tm_lines(col = "speed_kmh",
+           col.scale = tm_scale_continuous(5, values = "turbo", limits = c(10.06, 112)),
+           col.legend = tm_legend("Speed in km/h", position = c("left", "top"), frame = FALSE, 
+                                  text.size = 1, title.size = 1.2, margins = c(0, -0.5, 0, 0),
+                                  title.padding = c(0, 0, -0.5, 0), 
+                                  item.space = 0, item.height = 2, item.width = 0.5)) +
+  tm_shape(subset(nodes, key_city)) + tm_dots(size = 0.2) +
+  tm_shape(subset(nodes, !key_city)) + tm_dots(size = 0.1, fill = "grey70") +
+  tm_layout(frame = FALSE) #, inner.margins = c(0.1, 0.1, 0.1, 0.1))
+dev.off()
+
+# Mc
 pdf("figures/ECA_centroids_network_actual_discretized_middle_corridor_speed_EWTM.pdf", width = 17, height = 7)
 tm_basemap("Esri.WorldTopoMap", zoom = 6) +
   tm_shape(edges_real_ext) +
