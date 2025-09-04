@@ -8,7 +8,7 @@ fastverse_extend(qs, sf, units, sfnetworks, tmap, ggplot2, install = TRUE)
 fastverse_conflicts()
 
 files <- list.files("results/grid_network/country", pattern = "_sigma2_") |> 
-  grep(pattern = "_irs_", invert = TRUE, value = TRUE) |> 
+  grep(pattern = "_irs_", invert = FALSE, value = TRUE) |> 
   grep(pattern = "_ann_", value = TRUE, invert = TRUE) |>
   grep(pattern = "_ug_", value = TRUE, invert = TRUE)
 countries <- substr(files, 15, 17) |> unique()
@@ -300,8 +300,40 @@ ggsave("figures/ECA_grid_network_upgrading_barchart_both_decomp_nograd_legadj.pd
 
 
 # Excusus: Upgrading Amount to Match Rellocation Gains
-Mrealloc <- list(DRS = fread("results/grid_network/ALL_Mrealloc_fixed_sigma38_rho0.csv"),
-                 IRS = fread("results/grid_network/ALL_Mrealloc_fixed_irs_sigma38_rho0.csv"))
+
+results <- sapply(countries, function(x) {
+  fx <- grep(x, files, value = TRUE)
+  c(sort(fx[grep("nodes", fx)]), sort(fx[grep("edges", fx)]))
+}, simplify = FALSE)
+
+table(lengths(results))
+results <- results[lengths(results) == 4]
+
+results <- lapply(results, function(f) {
+  list(nodes_Mrealloc = fread(paste0("results/grid_network/country/", f[1])),
+       nodes_realloc = fread(paste0("results/grid_network/country/", f[2])),
+       edges_Mrealloc = fread(paste0("results/grid_network/country/", f[3])),
+       edges_realloc = fread(paste0("results/grid_network/country/", f[4])))
+})
+
+results |> 
+  get_elem("edges_Mrealloc", regex = TRUE) |> 
+  rapply2d(with, list(K = sum(cost_kmh * Ijk),
+                      K_base = sum(cost_kmh * Ijk_orig),
+                      K_ctry = sum((cost_kmh * Ijk_orig)[!is_buff]),
+                      PercInc = sum((Ijk-Ijk_orig)*cost_kmh) / sum((Ijk_orig*cost_kmh)[!is_buff]) * 100)) |> 
+  rowbind(idcol = "iso3c", return = "data.frame") |> 
+  join(results |> 
+    get_elem("nodes", regex = TRUE) |> 
+    rapply2d(subset, !is_buff) |> 
+    rapply2d(with, sum(uj * Lj_orig) / sum(uj_orig * Lj_orig) - 1) |> 
+    rowbind(idcol = "iso3c", return = "data.frame") |> 
+    compute(WgainPerc = nodes_Mrealloc * 100, TargetPerc = nodes_realloc * 100, keep = "iso3c")) |>  
+  fwrite("results/grid_network/ALL_Mrealloc_fixed_irs_sigma2_rho0.csv")
+
+# Reading again
+Mrealloc <- list(DRS = fread("results/grid_network/ALL_Mrealloc_fixed_sigma2_rho0.csv"),
+                 IRS = fread("results/grid_network/ALL_Mrealloc_fixed_irs_sigma2_rho0.csv"))
 Mrealloc %<>% lapply(. %>% mutate(PercIncAdj = PercInc * TargetPerc / WgainPerc) %>%
                      roworder(PercIncAdj) %>% 
                      mutate(country = countrycode::countrycode(iso3c, "iso3c", "country.name.en") |> 
@@ -322,9 +354,7 @@ Mrealloc$DRS |>
         axis.ticks.length.y = unit(0, "lines")) +
   labs(x = "Increase in Infrastructure Stock to Match Optimal Reallocation Gains", y = "Country")
 
-ggsave("figures/ECA_grid_network_Mrealloc_barchart_DRS_nograd.pdf", width = 7, height = 7)
-
-
+ggsave("figures/ECA_grid_network_Mrealloc_barchart_DRS_nograd_sigma2.pdf", width = 7, height = 7)
 
 # Both 
 Mrealloc$IRS |> 
@@ -334,15 +364,15 @@ Mrealloc$IRS |>
   ggplot(aes(x = PercIncAdj, y = country)) + # , fill = wgain
   geom_bar(stat = "identity", fill = "orange") +
   geom_point(aes(x = PercIncAdj_drs), shape = 108, size = 5) +
-  geom_text(aes(x = PercIncAdj_drs, label = paste0(round(PercIncAdj_drs, 2), "%")), nudge_x = 8, size = 3) +
-  geom_text(aes(label = paste0(round(PercIncAdj, 2), "%")), nudge_x = 8, size = 3) +
-  annotate(
-    geom = "text", x = 100, y = 10.5, 
-    label = expression(bold("\u2014")~" Decreasing Returns: "~gamma < beta), size = 4
-  ) +
+  # geom_text(aes(x = PercIncAdj_drs, label = paste0(round(PercIncAdj_drs, 2), "%")), nudge_x = 8, size = 3) +
+  geom_text(aes(label = paste0(round(PercIncAdj, 2), "%")), nudge_x = 3, size = 3) +
+  # annotate(
+  #   geom = "text", x = 100, y = 10.5, 
+  #   label = expression(bold("\u2014")~" Decreasing Returns: "~gamma < beta), size = 4
+  # ) +
   # viridis::scale_fill_viridis(option = "F", begin = 0.4, end = 1, direction = -1) +
-  scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, scale = 1), 
-                     expand = expansion(add = c(0, 10))) +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1, scale = 1), 
+                     expand = expansion(add = c(0, 5))) +
   theme_minimal() + guides(fill = "none") +
   theme(panel.grid = element_blank(),
         axis.line = element_line(linewidth = 0.4),
@@ -351,7 +381,7 @@ Mrealloc$IRS |>
         axis.ticks.length.y = unit(0, "lines")) +
   labs(x = "Increase in Infrastructure Stock to Match Optimal Reallocation Gains", y = "Country")
 
-ggsave("figures/ECA_grid_network_Mrealloc_barchart_both_nograd.pdf", width = 7, height = 7)
+ggsave("figures/ECA_grid_network_Mrealloc_barchart_both_nograd_sigma2.pdf", width = 7, height = 7)
 
 
 # Tables for Export
@@ -376,7 +406,9 @@ result <- Mrealloc |>
          colorder(cluster))
 
 result |> 
-  writexl::write_xlsx("results/grid_network/ALL_Mrealloc_table.xlsx")
+  writexl::write_xlsx("results/grid_network/ALL_Mrealloc_table_sigma2.xlsx")
+
+
 
 # Excursus: Database of control characteristics at the country level
 
