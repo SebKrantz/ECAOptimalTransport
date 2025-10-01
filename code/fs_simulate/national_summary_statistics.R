@@ -122,10 +122,22 @@ jobs_gains <- lapply(names(iso3_codes), function(c) {
     I_orig = I_orig,
     I_new = I_new,
     I_pch = (I_new / I_orig - 1) * 100,
-    jobs_gains = -1/((1-0.33)*(1-I_orig)) * (I_new / I_orig - 1) * 100,
-    markup_gains = -1/(1 - I_orig) * (I_new / I_orig - 1) * 100
+    jobs_gains = -1 / ((1 - 0.33) * (1 - I_orig)) * (I_new / I_orig - 1) * 100,
+    markup_gains = -1 / (1 - I_orig) * (I_new / I_orig - 1) * 100
   )
 }) |> rbindlist()
 
 jobs_gains |> 
-  xtable::xtable(digits = 3) |> print(include.r = FALSE, booktabs = TRUE)
+  xtable::xtable(digits = 3) |> 
+  print(include.r = FALSE, booktabs = TRUE)
+
+jobs_gains |> 
+  select(country, I_pch, markup_gains, jobs_gains) |> 
+  join(jobs_gains_exp |> select(country, I_pch, markup_gains, jobs_gains), 
+       on = "country", suffix = "_exp") |> 
+  join(jobs_gains_ug |> select(country, I_pch, markup_gains, jobs_gains), 
+       on = "country", suffix = "_ug") |> 
+  xtable::xtable(digits = 2) |> 
+  print(include.r = FALSE, booktabs = TRUE)
+
+
