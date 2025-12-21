@@ -293,7 +293,7 @@ Kosovo & 7.21 & -0.18 & \textbf{0.27} & 36.71 & -0.93 & \textbf{1.38} & 32.24 & 
 %Croatia & 18.07 & -0.44 & 0.65 & 42.15 & -1.02 & 1.52 & 34.32 & -1.14 & 1.71 & 24.78 & -0.40 & 0.59 \\ 
 %Kosovo & 7.21 & -0.18 & 0.27 & 36.71 & -0.93 & 1.38 & 32.24 & -1.07 & 1.60 & 38.85 & -0.68 & 1.01 \\ 
    \bottomrule \\ [-0.9em]
-\multicolumn{13}{l}{\parbox{0.95\textwidth}{\scriptsize
+\multicolumn{13}{l}{\parbox{1.1\textwidth}{\scriptsize
 \textit{Notes:} All values are in \%-changes (e.g., $I$-columns report $100 \Delta I/I$), and exclude nodes/edges within the 100km buffer zone. Infrastructure quality $I$ is computed as a population-weighted average across all links, where each link $(i,j)$ is weighted by the product of cell $i$ and cell $j$'s populations. $I$ denotes infrastructure quality (time efficiency in reallocation and expansion match scenarios, speed in the upgrading scenario), $\eta$ is the markdown (ratio of value of marginal product of labor to labor cost), and $L$ is employment. The changes in $\eta$ and $L$ are computed from changes in $I$ using Equations \ref{eq:dmd} and \ref{eq:djobs}, assuming $\alpha = 0.33$. The four scenarios are: (1) \textit{Reallocation}: optimal reallocation of existing infrastructure; (2) \textit{Joint Match}: optimal expansion/upgrading matching welfare gains from reallocation; (3) \textit{Expansion Match}: expansion-only scenario matching welfare gains; (4) \textit{Upgrading Match}: upgrading-only scenario matching welfare gains.}} % \\ \vspace{-10mm}
 \end{tabular}
 }
@@ -390,9 +390,20 @@ We run simulations with investment budgets of \$10 and \$25 billion to create in
 The productivity calibration follows \citet{armington1969theory} and \citet{fajgelbaum2020optimal}: we let 25 key cities produce different products and divide the remaining cities into 4 quartiles by population. Thus, in total there are 29 products traded across the network differentiated by origin. Like \citet{fajgelbaum2020optimal}, we assume that cross-goods congestion applies. \newline 
 
 
-Figure \ref{fig:ECAGE10B} shows the optimal \$10 billion investment allocation. In Western Europe, some funds are spent on building selected new links, whereas in Eastern Europe a combination of new links and upgrades is chosen. Notably, all links connecting Russia to Ukraine are restored, and a large new road connecting St. Petersburg in Russia to Tallinn in Estonia is built. Very little infrastructure is built in Central Asia; only a few links on the east side of the Caspian Sea are upgraded. This is likely due to Central Asia's sparse population and low productivity. \newline 
+Figure \ref{fig:ECAGE10B} shows the optimal \$10 billion investment allocation. In Western Europe, some funds are spent on building selected new links, whereas in Eastern Europe a combination of new links and upgrades is chosen. Notably, all links connecting Russia to Ukraine are restored, and a large new road connecting St. Petersburg in Russia to Tallinn in Estonia is built. Very little infrastructure is built in Central Asia; only a few links on the east side of the Caspian Sea are upgraded. This is likely due to Central Asia's sparse population and low productivity. % \newline 
 
-The bottom panel of Figure \ref{fig:ECAGE10B} shows the welfare gains in each node. The highest gains of up to 2\% are realized in Ukraine in places that are now a war zone. Gains in Western Europe are small, generally below 0.5\%, and there are some mild losses, e.g., in central parts of Germany, due to economic activity shifting to the east. Notably, Central Asia, despite receiving no mentionable investments, still reaps high welfare gains as the investments in Eastern Europe increase connectivity and trade between Western Europe and Central Asia. This is also apparent from the model-implied trade flows, visualized for four key cities in Appendix Figure \ref{fig:ECAGETF}: Despite little production and trade from Tashkent, Uzbekistan, the infrastructure investments enable greater trade flows with Moscow, Paris, and Istanbul. 
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAGE10B} Optimal \$10 Billion Network Investment Allocation}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_10b_fixed_irs_cgc_sigma3.8_rho0_perc_ug.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_10b_fixed_irs_cgc_sigma3.8_rho0_upw_gain.pdf"}
+\scriptsize 
+\emph{Notes:} Top panel shows optimal 10 billion 2015 USD network investment in terms of the percentage of proposed construction/upgrading work completed on each link. The bottom panel shows the corresponding welfare gains. 
+\end{figure}
+
+The bottom panel of Figure \ref{fig:ECAGE10B} shows the welfare gains in each node. The highest gains of up to 2\% are realized in Ukraine in places that are now a war zone. Gains in Western Europe are small, generally below 0.5\%, and there are some mild losses, e.g., in central parts of Germany, due to economic activity shifting to the east. Notably, Central Asia, despite receiving no mentionable investments, still reaps high welfare gains as the investments in Eastern Europe increase connectivity and trade between Western Europe and Central Asia. This is also apparent from the model-implied trade flows, visualized for four key cities in Appendix Figure \ref{fig:ECAGETF}: Despite little production and trade from Tashkent, Uzbekistan, the infrastructure investments enable greater trade flows with Moscow, Paris, and Istanbul. \newline
+
+Figure \ref{fig:ECAGE25B} visualizes an optimal \$25 billion investment. It broadly generates the same spatial patterns of infrastructure allocation and welfare gains, now including full upgrades of many roads in Russia and Eastern Europe and also partial upgrades of some Western European roads. % \newline 
 
 \begin{figure}[H]
 \centering
@@ -403,7 +414,6 @@ The bottom panel of Figure \ref{fig:ECAGE10B} shows the welfare gains in each no
 \emph{Notes:} Top panel shows optimal 25 billion 2015 USD network investment in terms of the percentage of proposed construction/upgrading work completed on each link. The bottom panel shows the corresponding welfare gains. 
 \end{figure}
 
-Figure \ref{fig:ECAGE25B} visualizes an optimal \$25 billion investment. It broadly generates the same spatial patterns of infrastructure allocation and welfare gains, now including full upgrades of many roads in Russia and Eastern Europe and also partial upgrades of some Western European roads. \newline 
 
 Appendix Figures \ref{fig:ECAGE10BOU} and \ref{fig:ECAGE25BOU} show optimal \$10 billion and \$25 billion investments where the planner is only allowed to upgrade roads. They yield broadly similar allocations as Figures \ref{fig:ECAGE10B} and \ref{fig:ECAGE25B}, with much more intensive upgrading in Eastern Europe and Russia. These serve as an important benchmark for policymakers, as most road projects today involve upgrading existing roads rather than fresh construction, and there may be important obstacles to building some of the 274 proposed links beyond a rudimentary assessment of geographic feasibility. 
 
