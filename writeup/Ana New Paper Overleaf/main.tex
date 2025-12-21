@@ -1,0 +1,599 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+% \usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{apacite} % APA style citations
+\AtBeginDocument{\urlstyle{APACsame}}  % Links in APA citytions same formatting
+\usepackage{tabulary}
+\usepackage{natbib} % natbib citations: \citep{} and \citet{} for in-text
+\usepackage{booktabs}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage{adjustbox}
+% If you use \tableofcontents, this adjusts the name
+%\addto\captionsenglish{\renewcommand*\contentsname{Table of Contents}}
+
+\title{Investments to Overcome Infrastructure Misallocation\\and Improve Connectivity in the ECA Region}
+
+\author{Ana Cusolito\footnote{World Bank\\ \hphantom{aaa}\textit{E-mail:} acusolito@worldbank.org.}\ \ and Sebastian Krantz\footnote{Kiel Institute for the World Economy and World Bank\\ \hphantom{aaa}\textit{E-mail:} sebastian.krantz@kielinstitut.de or skrantz@worldbank.org.}}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+
+\noindent
+This paper quantifies welfare, wage, jobs losses due to suboptimal infrastructure placement, as well as the compensating investment needed---via expansion and upgrading of road networks---to overcome them, for a sample of 20 Eastern European and Central Asia countries. Compensating investments are more expensive if governments attempt to overcome loses through upgrading instead of expansion of the transport network. The average road upgrading is 1.285 times larger than the corresponding road expansion. Upgrading investments range from \$0.36 to \$23.39 billion, while expansion investments do so from \$0.16  to \$19.62 billion. 
+%Misallocation of infrastructure delivers jobs and wages losses of up to Y\% and Y\%, respectively.   
+\\ [0.7em]
+\noindent \textbf{Keywords:} Road networks, spatial misallocation, Eastern Europe and Central Asia\\
+\textbf{JEL Classification:} O18; R42; R10; O10
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction} 
+
+\todo[inline]{I'm not sure if explaining the work of \citet{hornbeck2024growth} is the appropriate way to introduce this article. It focuses on a specific channel, which we, however, don't model here.}
+
+Multilateral Development Banks and governments from emerging and developing countries invest massively in infrastructure. The European Union’s budget is €1.816 trillion for the period 2021-2027\todo{Ana can you provide a reference for this, and perhaps state what it comprises (maintenance/new, types)?}. No doubt, infrastructure development is key to pave the road for economic growth. Recent work by \citet{hornbeck2024growth} shows the productivity-growing opportunities that infrastructure brings about when markets are inefficient: firms operating in these markets may be unable or unwilling to expand production, even when the accompanying increase in output value would exceed the corresponding increase in input costs, i.e.,  when expanding production is profitable. \newline 
+
+Changes in transport infrastructure---expansion and improvement of the existing network---have the potential to shift economic activity towards location where inefficiencies are greater. This reallocation can be productivity-enhancing if the value of the marginal product of the input, whose use is expanded through infrastructure, is higher than its marginal cost. That is, if the return-cost wedge is higher than 1. Therefore, the extent of productivity gains from changes in transport infrastructure depends on the spatial dispersion of these wedges and are proportional to them. An application of \citet{hornbeck2024growth} by \citet{cockriel2025aggregate} in East and Central Asia shows that wedge dispersion for materials, labor, and capital is high in this region---and thus also the potential jobs, wages, and productivity gains from expanded and upgraded infrastructure.  \newline
+
+However, to take advantage of the economic growing opportunities that infrastructure brings about, the placement of infrastructure projects should be optimal. That is, projects should be placed in locations that maximize the welfare gains from connectivity. %This, in turn, is a function of specific determinants such as the distances between any two nodes in the road network, the ruggedness of the terrain, and the existence (or not) of congestion, which is associated with the returns to scale displayed by the transport technology. 
+Work by \citet{fajgelbaum2025optimal} and \citet{fajgelbaum2020optimal} shows that there is scope for a more efficient allocation of public infrastructure even in advanced European countries. Misallocation of public infrastructure is not exclusively the results of bad policies. Evidence shows that history-based persistence and path dependence can play a more prominent role than geography in determining the location of public infrastructure projects \citep{allen2022persistence, graff2024spatial}.  This is why several studies on transport find that modern transport networks follow the trace of ancient roads or are a parallel displacement of them (Volpe et al., 2013)\todo{Ana please provide bibtex citation.}.  \newline
+
+We build on these works to further explore the relevance of this topic in less advanced economies, where market inefficiencies due to wedges are higher. 
+Beyond calculating the welfare losses from road network inefficiencies following \citet{fajgelbaum2020optimal} and \citet{graff2024spatial}, we quantify the investments needed to overcome the welfare losses from infrastructure misallocation. We also analyze what percentage of these losses are due to the prioritization of peripheral roads instead of intercity connectivity and thus explore the growth-inclusion trade-off behind infrastructure investments. Our sample covers 20 countries not included in \citet{fajgelbaum2020optimal} and similar studies we are aware of. Using a reduced form solution, we also infer jobs gains in each country from these investments---a key policy priority for the World Bank's allocation of spending. Last but not least, we also model optimal investments into the road network of the entire Europe and Central Asia (ECA) region, highlighting the need to invest in upgrading of Eastern European roads to foster greater market access throughout the region. \newline %both in terms of road network expansion and upgrading, 
+
+%\begin{itemize}
+%\item Our results show...
+%\item Our paper relates to a strand of research that analyzes the welfare gains from infrastructure reallocation, expansion and upgrading.
+%\item The paper is structured as follows. 
+%\end{itemize}
+
+Our results show that, under weak congestion forces, the welfare losses from inefficient allocation of road networks range between 0.09\% (Kosovo) to 0.67\% (Estonia). These inefficiencies are below the ones typically found in the literature, which range between 1\% and 7\%. On average, 38.6\% of the loses are due to the prioritization of peripheral roads instead of roads that strengthen inter-city connectivity. \newline
+
+Countries can overcome these losses through expansion and/or upgrading of the transport network. We consider an unrestricted (expansion) case where links can be improved by any means (building new roads and/or upgrading existing ones), and a restricted (upgrading) case where only upgrading of existing roads is allowed. We find that on average networks need to be expanded by 26.5\% or upgraded by 64.8\% to compensate welfare losses from misallocation. Assuming, based on data from the World Bank ROCKS database \citep{rocks2018}, that upgrading is about half as expansive than expansion, we find that compensating investments under the upgrading restriction are still 21\% more expensive in the average country, highlighting the economic benefits of optimal network expansions. 
+% However, upgrading investments are, on average, Y times more expensive than expansion ones. The average road upgrading is Y times larger than the corresponding road expansion. U
+Upgrading investments to overcome misallocation in different countries range from \$0.36 to \$23.39 billion, while expansion investments range from \$0.16  to \$19.62 billion. 
+Misallocation is estimated to yield jobs and wages losses of up to 3.7\% and 2.5\%, respectively. % Our results also support the hypothesis that too much infrastructure spending in ECA targeted unimportant roads, whereas larger welfare gains could have been achieved from improving inter-city connectivity. 
+\newline
+
+
+
+
+%This indicates that road networks in ECA are generally more efficient than in Africa, where some countries like Somalia can reap gains of $\geq$6\% from reallocation \citep{graff2024spatial}. 
+
+\todo[inline]{Let's think also which of these studies is really relevant and if we are missing relavent studies. Obviously, my gaze is very Africa-focused.}
+Our paper relates to a strand of research that analyzes the welfare gains from infrastructure reallocation, expansion and upgrading. Notably, \citet{fajgelbaum2020optimal} introduce a new framework to calculate welfare-maximizing transport networks and apply it to assess optimal investments and inefficiencies in the road networks of 24 European countries. The authors find that the average welfare loss from road misallocation are on average 2\%
+and range between 1\% and 7\%. \citet{graff2024spatial} studies spatial inefficiency in African national road networks using the quantitative framework of \citet{fajgelbaum2020optimal}. He estimates that Africa would gain 1.3\% of total welfare from better organizing its national road systems, with national welfare gains ranging between 6.6\% for Somalia and 0.5\% for South Africa. The region would gain 0.8\% of total welfare from a 10\% optimal expansion. Similarly, \citet{gorton2022trade} analyze trade network inefficiencies and optimal expansions for Latin America closely following \citet{fajgelbaum2020optimal}. They find average welfare gains of 1.6\% from optimal reallocation and 1\% from a 10\% optimal expansion of national road networks. They also consider transnational networks in the MERCOSUR and Andean Community trade blocs. Disregarding borders, they find that optimal expansions better connect major cities across countries at welfare gains that range between 1.5\% and 1.9\%. Throughout they find, as also noted by \citet{fajgelbaum2020optimal}, that optimal expansion or reallocation of roads reduce spatial wealth disparities. \newline
+
+An emerging policy literature evaluates the effects of planned road interventions. Notably, \citet{lallleband2020} structurally estimate the spatial effects of the Belt and Road Initiative (BRI) for China and Central Asia, and they find that welfare will increase by 1.8\% in Kazakhstan, 8.7\% in the Kyrgyz Republic, 1.3\% in Uzbekistan, and by 0.4\% in China. The authors further find that, within these countries, larger urban districts near trade hubs gain in welfare, while people in more distant regions tend to lose out. Barriers to internal labor mobility exacerbate wage inequalities while dampening overall welfare. \citet{fontagne2023trade} model the effects of planned trade (AfCFTA) and transport (PIDA) integration in Africa and find that AfCFTA alone would raise exports by 3.4\% and GDP by 0.6\%, whereas concurrent completion of PIDA priority road projects up to 2040 would raise exports by 11.5\% and GDP by 2\%. %The novel analysis incorporates data on border frictions and trade through ports. 
+Further similar works investigate West-Africa \citep{lebrand2023corridors} and the Horn of Africa \citep{herrera2023infrastructure} regions. \citet{lebrand2023corridors} finds that upgrading the Dakar-Lagos road corridor yields benefits 3 times the estimated costs, and 6  times with reduced border delays. \citet{herrera2023infrastructure} find a 1\% welfare gain from road investments along 4 corridors, which is raised to 4.3\% if border delays are reduced by 50\% and to 7.8\% with added electrification. \newline
+
+% Many further works such as \citet{jedwab2022average}, \citet{Peng2021}, \citet{abbasi2022roads}, \citet{fiorini2021trade}, and \citet{moneke2020infrastructure} study the economic effects of past road interventions in Africa. The latter two find that road network expansion in Ethiopia enhanced the impact of trade liberalization/electrification on local firm productivity/industrialization, respectively. A vast further literature studies the effects of road interventions in other world regions, particularly in China \citep{faber2014trade, baum2020does} and India \citep{asher2020rural, alder2016chinese}.
+
+The paper is structured as follows. Section 2 lay out our methodology for representing road networks and calculating allocative inefficiencies and compensating investments, Section 3 presents and discusses the main empirical results, Section 4 links these to job gains and firm markdowns, and Section 5 summarizes the findings and concludes. % \newline 
+
+
+\section{Methodology} 
+
+
+To conduct the analysis, we use a quantitative spatial general equilibrium model with multiple goods, factors, and locations following \citet{fajgelbaum2020optimal}. 
+We solve a planner's optimization problem over the space of all possible transport networks. Thus, in this setting, the planner chooses the set of infrastructure investments to carry out in a country. Transport and trade costs are endogenous. They depend on geographic frictions, but also on the quality of infrastructure and the amount of trade/traffic along a given link---which gives rise to congestion. Following \citet{fajgelbaum2020optimal}, we divide geographic space by 0.5$^\circ$ grid cells and allocate population and GDP per capita using recent global estimates by \citet{LGEAW}. We then convert this grid into a graph where the nodes are the population-centroids of each cell---estimated using WorldPop 2020 data \citep{tatem2017worldpop}---and each cell connects to all 8 neighbouring cells. \newline % by aggregating smaller cells at the grid level. Then, we apportion income from the cells with GDP per capita based on population. 
+
+For each country, we consider all national cells and cells within 100$km$ geodesic distance from national cells, alongside all connecting segments. Then, we assume that the 15 largest cells with a population above 200,000 produce different products that are traded across the network. Other cells are divided into 5 quantiles according to population, where each quantile produces its own product. Thus, in total 20 products are traded at the country level and each cell only produces and trades one of them. This is equivalent to an \citet{armington1969theory} model of differentiated products by origin, with an elasticity of substitution of $\sigma = 3.8$ based on \citet{BAJZIK2020103383}.  \newline
+
+ The goods are produced using a linear technology $Y_i = Z_i L_i$, where $L_i$ is cell $i$'s population and $Z_i$ cell GDP per capita in 2017 PPP terms. Individual utility over traded and non-traded goods (housing) is a Cobb-Douglas function $U = c^\alpha h^{1-\alpha}$. We assume $\alpha = 0.4$ and $h = 1$, i.e., housing is proportional to population and each person is given one unit of housing based on  \citet{fajgelbaum2020optimal} and \citet{graff2024spatial}, respectively. For parameterizing the model, we also follow \citet{fajgelbaum2020optimal} and \citet{graff2024spatial}. 
+ We set the congestion parameter $\beta = 0.13$, the returns to infrastructure $\gamma = 0.169$, reflecting increasing returns to infrastructure since $\gamma > \beta$,\footnote{This may be more realistic since \citet{shepherd2007trade}, studying trade and road infrastructure in ECA, find that a 1\% improvement in average road quality is associated with a 0.2\% to 0.6\% increase in trade, and \citet{cocsar2016domestic}, studying large-scale public investment in roads undertaken in Turkey during the 2000s, find that the distance elasticity of trade improved by 0.10–0.27 when roads were upgraded. Both studies thus suggest a value of $\gamma$ well above 0.1---\citet{fajgelbaum2020optimal}'s baseline consideration based on data on major US cities from \citet{couture2018speed}. Following \citet{fajgelbaum2020optimal}, we instead calibrate $\gamma = \beta^2/0.1 = 0.169$, which is their increasing returns specification.} and the iceberg trade costs $\delta^\tau_{ij} = 0.116 \times \log(\text{geodesic distance in km})$. 
+These parameters enter an iceberg trade costs function of the form $1+\tau^n_{ij}$, capturing the cost of trading good $n$ between cells $i$ and $j$, with $\tau^n_{ij} = \delta^\tau_{ij} (Q^n_{ij})^\beta / I_{ij}^\gamma$. %We also explore the scenario with increasing returns to infrastructure by inverting the ratio of $\beta$ and $\gamma$ to obtain $\gamma' = \beta^2/\gamma = 0.169$. 
+To measure the quality of infrastructure $I_{ij}$, we use the OpenStreetMap routing engine (OSRM) to compute the travel time and distance (by car) between the population centroids of neighboring cells. We then derive three measures of infrastructure quality from these estimates: (1) travel speed in km/h, (2) route efficiency (RE), which is the geodesic distance between two nodes divided by the road distance, multiplied by 100, and (3) time efficiency (TE), the geodesic distance divided by the travel time. We will use these three measures alternatingly to simulate three sets of counterfactual investment scenarios: Enhancing network speed is tantamount to 'upgrading' the network, increasing RE implies 'expanding' it, and increasing 'TE' can be thought of as an optimal combination of network expansion and upgrading to improve connectivity. While this conception is highly imperfect, it allows us to abstract from the spatial details of the road networks of different countries and simulate comparable investments across countries and space. \newline  
+
+We define the estimated cost of building infrastructure on a link as follows:
+\begin{equation} \label{eq:cost}
+\delta^I_{ij} = \delta^I_0 + 0.12 \times \log(\text{Ruggedness}_{ij}) + 0.085 \times \log(\text{Population per $km^2$}_{ij}),
+\end{equation}
+where terrain ruggedness is taken from \citet{nunn2012ruggedness} and averaged in each cell, and population density is computed using WorldPop 2020 estimates \citep{tatem2017worldpop}. 
+To obtain bilateral measures, we average the respective estimates between neighboring cells $i$ and $j$. The network building constraint is then $K = \sum_i \sum_j \delta^I_{ij} I_{ij}$, where $\delta^I_0$ is set such that the budget $K = $1,000,000. \newline
+
+Table \ref{tab:sstat} presents summary statistics of the main variables, disregarding nodes/edges within the 100km buffer zone. Evidently, population density, productivity, and infrastructure quality differ widely across countries. The correlation of infrastructure quality (TE), with GDP per capita is 0.72 and with population is 0.44, indicating that higher income and more populated countries tend to have better infrastructure. GDP per capita and population are uncorrelated in this sample. 
+
+
+% latex table generated in R 4.4.3 by xtable 1.8-4 package
+% Wed Sep 17 16:53:38 2025
+\begin{table}[h!]
+\centering
+\caption{Summary Statistics of Main Variables}
+\vspace{2mm}
+\label{tab:sstat}
+\begin{tabular}{lrrrrrrrrr}
+  \toprule
+Country & \# N & \# E & Pop & GDPC & km/h & RE & TE & $\delta^\tau_{ij}$ & $\delta^I_{ij}-\delta^I_0$ \\ 
+  \midrule
+Kyrgyzstan &  94 & 283 & 16.63 & 3.42 & 39.24 & 42.90 & 14.73 & 0.47 & 248.58 \\ 
+  Tajikistan &  76 & 225 & 13.06 & 3.98 & 33.34 & 43.91 & 13.21 & 0.48 & 274.98 \\ 
+  Bulgaria &  50 & 146 & 80.85 & 18.91 & 46.94 & 62.12 & 29.31 & 0.47 & 252.86 \\ 
+  Estonia &  47 & 121 & 14.40 & 28.45 & 52.55 & 72.93 & 38.11 & 0.44 & 163.02 \\ 
+  Ukraine & 318 & 1089 & 73.21 & 11.85 & 45.44 & 67.74 & 29.94 & 0.47 & 211.03 \\ 
+  Greece & 119 & 188 & 30.71 & 24.64 & 48.62 & 60.81 & 29.38 & 0.47 & 260.78 \\ 
+  Poland & 176 & 620 & 148.31 & 27.84 & 50.80 & 72.42 & 36.59 & 0.47 & 210.08 \\ 
+  Serbia &  34 &  98 & 139.19 & 15.81 & 47.07 & 64.45 & 28.79 & 0.47 & 260.39 \\ 
+  Turkmenistan & 226 & 756 & 0.68 & 12.50 & 23.39 & 46.27 & 10.37 & 0.48 & 168.66 \\ 
+  Belarus & 110 & 370 & 34.17 & 16.65 & 53.19 & 70.02 & 36.57 & 0.47 & 185.68 \\ 
+  Turkey & 380 & 1331 & 114.69 & 25.41 & 55.73 & 60.82 & 32.87 & 0.48 & 264.02 \\ 
+  Azerbaijan &  56 & 154 & 125.78 & 13.30 & 51.17 & 54.01 & 26.68 & 0.47 & 253.49 \\ 
+  Uzbekistan & 200 & 627 & 2.45 & 7.45 & 26.78 & 57.30 & 14.47 & 0.47 & 173.58 \\ 
+  Romania & 117 & 389 & 132.15 & 25.28 & 47.12 & 66.44 & 31.68 & 0.47 & 257.77 \\ 
+  Albania &  15 &  37 & 119.11 & 12.77 & 45.38 & 59.23 & 27.02 & 0.46 & 272.63 \\ 
+  Bosnia &  23 &  61 & 120.70 & 14.95 & 46.42 & 59.02 & 25.38 & 0.47 & 273.38 \\ 
+  Armenia &  13 &  26 & 132.73 & 10.89 & 48.04 & 63.45 & 30.48 & 0.48 & 275.37 \\ 
+  Montenegro &   8 &  15 & 50.44 & 19.51 & 39.66 & 57.19 & 23.41 & 0.44 & 262.90 \\ 
+  Croatia &  42 &  73 & 72.83 & 26.75 & 48.13 & 65.42 & 32.05 & 0.47 & 236.72 \\ 
+  Kosovo &   6 &  11 & 381.40 & 11.75 & 53.33 & 67.34 & 33.07 & 0.45 & 305.14 \\  
+   \bottomrule   \\ [-0.9em]
+\multicolumn{10}{l}{\parbox{0.9\textwidth}{\scriptsize
+\textit{Notes:} Statistics exclude nodes/edges within 100km buffer zone. All statistics are medians across nodes/edges. Cell population is measured in thousands, GDP per capita in thousands of 2017 PPP USD, following \citet{LGEAW}. Infrastructure quality ($I_{ij}$) is measured either in road speed in km/h, route efficiency (RE) [$=$ geodesic distance divided by road distance times 100] or time efficiency (TE) [$=$geodesic distance divided by travel time, expressed in km/h in the direction of the destination]. Infrastructure building costs $\delta^I_{ij}-\delta^I_0$ $\approx$ thousands of 2015 USD per km following \citet{collier2016cost} and \citet{fajgelbaum2020optimal}.}} 
+\end{tabular}
+\end{table}
+
+% \begin{itemize}
+% \item Summary statistics of the measures for the sample of countries
+% \item Paragraph describing the summary statistics. 
+% \item Methodological approach to calculating what percentage of the losses are due to prioritization of peripheral zones. 
+% \item I don't understand why we have a value of 142 for Estonia. Shouldn't be the maximum 100? 
+% \end{itemize}
+
+
+%The latter may be more realistic since \citet{shepherd2007trade}, studying trade and road infrastructure in ECA, find that a 1\% improvement in average road quality is associated with a 0.2\% to 0.6\% increase in trade, and \citet{cocsar2016domestic}, studying large-scale public investment in roads undertaken in Turkey during the 2000s, find that the distance elasticity of trade improved by 0.10–0.27 when roads were upgraded. Both studies thus suggest a value of $\gamma$ well above 0.1. \newline 
+
+
+% @Ana to be added. In the following I then run two simulations for each country following \citet{graff2024spatial}: (1) an optimal 10\% expansion of the existing infrastructure stock ($I_{ij} = $ time efficiency) where $K = $1,100,000 and $\ubar{I}_{ij} = I_{ij}$ (existing infrastructure is fixed) and $\bar{I}_{ij} = 70km/h$, which is in the 99.9th percentile; and (2) an optimal reallocation exercise where $K = $1,000,000 and $\ubar{I}_{ij} = \min(I_{ij}, 10km/h)$, i.e., the welfare maximizing social planner can reallocate infrastructure. \newline 
+
+%In optimizing infrastructure, the planner only maximizes total national welfare, and can also only spend/reallocate infrastructure on national links. The 100$km$ buffer zone takes surrounding cells into account as trading partners. Infrastructure may thus be built to foster international trade, but only within national boundaries, and only if it maximizes welfare for domestic consumers. % \newline 
+
+To conduct the analysis, we compute the optimal network using a budget $K$ equal to the cost of the existing network, and we measure the total welfare loss from the present suboptimal infrastructure network---using the comprehensive TE measure of network quality. Furthermore, we invert the model to compute the percentage change in the budget $K$ necessary to compensate these welfare losses by optimally expanding/upgrading infrastructure, i.e., for the three measures of network quality, we calculate the percentage increase in the budget---optimally allocated---necessary to increase overall welfare by the same percentage as optimal reallocation using the TE measure yields. We also calculate the share of enhancing intercity connectivity in the optimal reallocation of infrastructure to quantify over-investment in peripheral regions. For this we identify segments connecting the 15 largest cities producing own products, and then divide the (absolute) sum of the infrastructure changes on these segments, times two,\footnote{We multiply by two because the net change on central segments must come from an equivalent net change along peripheral segments, i.e., we measure the total infrastructure share involved in center $\longleftrightarrow$ periphery reallocation.} by the total infrastructure changes.   
+
+\section{Welfare losses and investments}
+
+
+We begin by calculating the welfare losses from allocative inefficiencies in public infrastructure and the investments needed to overcome them. Table \ref{tab:wloss} column (1) displays the losses. %under the assumption of congestion in transport technology, which provides a lower bound for these losses, offering a conservative scenario. The average welfare loss is of 20.45\%, with a standard deviation of 8.82\%. Losses range from a low of 4.9\% for Kosovo and up to 39.14\% for Kyrgyzstan. 
+The average welfare loss is 0.37\%, with a standard deviation of 0.16\%. Losses range from a low of 0.086\% for Kosovo and up to 0.68\% for Estonia. Appendix Figure \ref{fig:Realloc} visualizes the reallocation for key countries. The thickness of links amounts to the final reallocation, whereas their color indicates whether infrastructure was added (red) or removed (blue) during the reallocation process. The size of nodes corresponds to their population, and their color indicates welfare gains from reallocation, with red or orange nodes experiencing gains, green nodes maintaining their welfare level, and blue nodes loosing out on welfare. National nodes surrounded by a white circle or buffer nodes surrounded by a black circle produce their own unique product and are thus particularly important trading partners. \newline
+
+The predominant reallocation pattern indicates that, to improve aggregate welfare, infrastructure is taken out of peripheral and sparsely populated regions to better connect urban centers. Column (2) of Table \ref{tab:wloss} quantifies this as the percentage of welfare loss attributable to core-periphery misallocation. It is 38.6\% on average, with a standard deviation of 16.7\%, ranging from 4.5\% in Kyrgyzstan to 70.7\% in Romania. The results thus indicate that core-periphery misallocation is substantive, accounting for a third of total misallocation, and up to two thirds in some countries. \newline
+
+
+To overcome those losses, countries can expand and/or upgrade the road network. Columns (4) and (5) of Table \ref{tab:wloss} display road network expansion (increase in RE) and upgrading (increase in speed), respectively, in percent, needed to overcome those losses. Column (3)therewhile shows  On average, countries have to expand their networks by a quarter to compensate the effects of allocative inefficiencies in public infrastructure. % This represents investments that range from (\$value) to (\$value). 
+The compensating network expansion oscillates from 17.3\% (Montenegro) to 40.1\% (Estonia). Alternatively, countries can upgrade their network--increasing the travel speed--with the same purpose. On average, a network has to be upgraded by 65\% to overcome losses from suboptimal infrastructure placement. %This represents investments that range from (\$value) to (\$value). 
+The minimum compensating upgrading is 18.7\% (Montenegro) and the maximum is 148.5\% (Uzbekistan). \newline % Investments range from a low of (\$value) to (\$value).
+% \begin{center}
+% [Insert Table 2 about here]
+% \end{center}
+
+Monetary amounts in billions of 2015 USD, indicated in parentheses, are heuristically calculated using Eq. \ref{eq:cost} and the $\delta^I_{ij}-\delta^I_0$ column of Table \ref{tab:sstat}, giving unit costs per km/h of time efficiency, and by assuming that upgrading (increasing speed instead of time efficiency) is half as costly.\footnote{The latter is reasonable as \citet{krantz2024optimal}, using the 2018 Update of the World Bank's Road Cost Knowledge System (ROCKS) Database, finds, in Table 5, that a new 2-lane highway costs on average 611,000 USD'15 per km in LMICs, and further, in Table 6, that upgrading costs on average 320,000 USD'15 per km in LMICs, which is a factor $0.52\approx 0.5$ cheaper.} They suggest that the actual amounts depend on the spatial extent of the road networks and the terrain, and that restricting compensatory measures to upgrading is more costly for all but a few small countries.\footnote{This is likely because in these countries road networks are already quite dense and thus increasing time efficiency amounts mostly to upgrading---but we have made the assumption that upgrading is half as costly.} \newline 
+
+
+%https://www.tablesgenerator.com/#
+% \todo[inline]{Share of peripheral roads in welfare loss.}
+\begin{table}[h!]
+\centering
+\caption{Welfare Losses and Compensating Investments (\%)}
+\vspace{2mm}
+\label{tab:wloss}
+\begin{tabular}{lccrrr} \toprule
+ & & & \multicolumn{3}{c}{\textbf{Compensated by}} \\
+\textbf{Country} & \textbf{$\Delta$Welfare} & \textbf{CorePer}  & \textbf{Joint} (\$B) & \textbf{Exp.} (\$B) & \textbf{Upgr.} (\$B) \\ \midrule
+  Kyrgyzstan & 0.643 & 4.511 & 33.830 (\hphantom{1}4.22) & 98.472 (31.04) & 101.152 (\hphantom{1}6.31) \\ 
+  Tajikistan & 0.552 & 36.420 & 26.327 (\hphantom{1}2.44) & 107.311 (28.17) & 131.102 (\hphantom{1}6.08) \\ 
+  Bulgaria & 0.526 & 39.424 & 28.738 (\hphantom{1}3.22) & 41.018 (\hphantom{1}9.28) & 102.205 (\hphantom{1}5.73) \\ 
+  Estonia & 0.678 & 56.906 & 40.082 (\hphantom{1}2.86) & 29.627 (\hphantom{1}3.91) & 84.518 (\hphantom{1}3.02) \\ 
+  Ukraine & 0.459 & 35.377 & 28.073 (19.62) & 37.881 (56.89) & 66.945 (23.39) \\ 
+  Greece & 0.396 & 38.497 & 20.738 (\hphantom{1}2.97) & 28.930 (\hphantom{1}8.19) & 57.619 (\hphantom{1}4.13) \\ 
+  Poland & 0.425 & 41.586 & 27.107 (13.58) & 27.292 (25.44) & 56.020 (14.03) \\ 
+  Serbia & 0.379 & 51.971 & 24.881 (\hphantom{1}1.88) & 34.009 (\hphantom{1}5.27) & 28.930 (\hphantom{1}1.09) \\ 
+  Turkmenistan & 0.440 & 16.053 & 29.626 (\hphantom{1}5.62) & &  \\ 
+  Belarus & 0.387 & 44.956 & 25.649 (\hphantom{1}6.64) & 29.113 (13.82) & 54.119 (\hphantom{1}7.01) \\ 
+  Turkey & 0.377 & 24.862 & 24.566 (29.61) & 43.865 (92.84) & 62.957 (37.94) \\ 
+  Azerbaijan & 0.376 & 33.133 & 26.648 (\hphantom{1}2.86) & 29.082 (\hphantom{1}6.00) & 47.219 (\hphantom{1}2.53) \\ 
+  Uzbekistan & 0.340 & 37.253 & 26.970 (\hphantom{1}6.74) & 60.579 (40.41) & 148.505 (18.56) \\ 
+  Romania & 0.332 & 70.663 & 24.068 (\hphantom{1}7.20) & 29.147 (18.40) & 30.331 (\hphantom{1}4.54) \\ 
+  Albania & 0.286 & 22.476 & 23.271 (\hphantom{1}0.64) & 30.748 (\hphantom{1}1.73) & 79.622 (\hphantom{1}1.09) \\ 
+  Bosnia \& Herzeg. & 0.260 & 66.593 & 24.954 (\hphantom{1}1.14) & 26.420 (\hphantom{1}2.55) & 32.215 (\hphantom{1}0.74) \\ 
+  Armenia & 0.176 & 38.563 & 20.947 (\hphantom{1}0.46) & 27.554 (\hphantom{1}1.25) & 25.858 (\hphantom{1}0.28) \\ 
+  Montenegro & 0.126 & 32.558 & 17.307 (\hphantom{1}0.16) & 30.883 (\hphantom{1}0.69) & 18.721 (\hphantom{1}0.09) \\ 
+  Croatia & 0.100 & 59.264 & 22.016 (\hphantom{1}1.24) & 34.765 (\hphantom{1}3.80) & 46.438 (\hphantom{1}1.31) \\ 
+  Kosovo & 0.086 & 20.954 & 33.385 (\hphantom{1}0.42) & 33.729 (\hphantom{1}0.74) & 57.126 (\hphantom{1}0.36) \\  
+  \bottomrule \\ [-0.9em]
+\multicolumn{6}{l}{\parbox{0.98\textwidth}{\scriptsize
+\textit{Notes:} All values are in \%, and exclude nodes/edges within 100km buffer zone. The welfare loss indicates the potential gains from optimally reallocating existing infrastructure across the network. The CorePer column indicates the percentage of welfare loss attributable to core $\leftrightarrow$ periphery reallocation. It is measured as the absolute sum of changes on links connecting key cities, times two, divided by the total absolute sum of infrastructure changes across all links. Welfare losses can be compensated by optimally expanding the network (increasing time efficiency) or just by upgrading it (increasing link speed). Expansion includes the possibility of upgrading but not vice versa. In both cases, the approximate cost is indicated in billions of constant 2015 USD, using the assumption that upgrading is half as expensive per link than expansion.}}
+\end{tabular}
+\end{table}
+
+% \todo[inline]{Expansion match and upgrading match: monetary amounts columns. @Sebastian, another note. Let's talk about absolute and relative investments so we are able to compare them across countries. This is related to the size effect we discussed before. }
+
+% \begin{itemize}
+% \item Include 3 columns to Table 2 with the investments in \$ for expansion and upgrading and last column with percentage of loss due to prioritization of peripheral zones. Add title and add note to the table so I can explain what is each column. 
+% \item I need a table with the percentage of losses due to peripheral zones. See Estonia. Is that the variable?
+% \end{itemize}
+
+
+
+%(@Sebatian) Part of the calculated losses are due to the prioritization of peripheral zones instead of fostering intercity connectivity. On average, Y \% of the losses are due to peripheral prioritization. Interestingly, there is no statistical significant correlation between reallocation gains and peripheral prioritization but the correlation coefficient is negative,  
+
+% \newpage
+
+\section{Jobs and markdowns responses to investments}
+
+Work by Hornbeck and Rotemberg (2024) shows the productivity growing opportunities that infrastructure investments bring about in highly inefficient markets. As explained before, this is because infrastructure allows the reallocation of resources towards places with higher wedges--ratio between value of marginal product and production cost. We extend the authors' work by exploring the jobs and wages implications of efficient allocation of infrastructure projects. In the particular case of labor markets, suboptimal infrastructure placement creates mobility restrictions, impeding labor to travel to places where their activity have higher market value. These frictions also segment markets, reducing workers' outside options, increasing firms' bargaining power, as well as markdowns. \newline 
+
+Table 3 presents the equivalent job losses due to infrastructure misallocation and how many jobs the economies can gain with compensating expansions and upgrading. It also displays the variations in markdowns--the ratio of the value of the marginal product of labor to labor cost--as a result of market integration due to matched expansion and upgrading (see Appendix for derivation). We present  reduced form solutions from a simple model of production, where labor is the only input with decreasing returns to scale ($\alpha = 0.33$), and firms incur a proportional reduction in output due to distance. Since we use a uniform spatial grid, the quality of infrastructure, $I_{jk}$, represents the effective length/distance of each link, and we average it across links using the product of cell $i$ and $j$'s populations as weights---yielding $I$. The reduced form solutions for changes in markdowns and jobs are then given by Equations \ref{eq:dmd} and \ref{eq:djobs}, respectively.
+
+% \todo[inline]{Changes in markdowns (monopolistic competition).}
+\begin{equation} \label{eq:dmd}
+\frac{\Delta \eta}{\eta}=\frac{-\gamma \tau}{1+\tau} \frac{\Delta I}{I}, % -\frac{1}{I-1}\frac{\Delta I}{I}
+\end{equation} 
+where $\tau = 0.5/I^\gamma$ roughly follows \citet{fajgelbaum2020optimal}, assuming fixed aggregate flows ($Q = 1$), and baseline iceberg parameter $\delta^\tau = 0.5$, as further detailed in the Appendix.
+\begin{equation} \label{eq:djobs}
+\frac{\Delta L}{L}=-\frac{1}{1-\alpha} \frac{\Delta \eta}{\eta}.
+\end{equation}
+
+\todo[inline]{Be clear in table footnotes about link aggregation. }
+\begin{table}[ht]
+\centering
+\caption{Jobs Gains from Optimal Reallocation or Matching Investments (\%)}
+\vspace{2mm}
+\label{tab:jobs}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrrrrrrrrr}
+  \toprule
+  & \multicolumn{3}{c}{Reallocation} & \multicolumn{3}{c}{Joint Match} &  \multicolumn{3}{c}{Expansion Match} & \multicolumn{3}{c}{Upgrading Match} \\
+Country & $I$ & $\eta$ & $L$ & $I$ & $\eta$ & $L$ & $I$ & $\eta$ & $L$ & $I$ & $\eta$ & $L$ \\ 
+  \midrule
+  Kyrgyzstan & 34.90 & -1.07 & \textbf{1.60} & 73.47 & -2.26 & \textbf{3.37} & 45.47 & -1.53 & \textbf{2.28} & 53.43 & -1.04 & \textbf{1.55} \\ 
+Tajikistan & 33.83 & -1.29 & \textbf{1.93} & 62.63 & -2.39 & \textbf{3.57} & 55.62 & -1.89 & \textbf{2.82} & 76.78 & -1.71 & \textbf{2.56} \\ 
+Bulgaria & 42.81 & -1.30 & \textbf{1.93} & 55.25 & -1.67 & \textbf{2.50} & 40.08 & -1.35 & \textbf{2.01} & 65.44 & -1.25 & \textbf{1.86} \\ 
+Estonia & 53.59 & -1.42 & \textbf{2.12} & 84.83 & -2.25 & \textbf{3.35} & 26.78 & -0.88 & \textbf{1.31} & 68.89 & -1.36 & \textbf{2.04} \\ 
+Ukraine & 42.81 & -1.39 & \textbf{2.07} & 68.42 & -2.21 & \textbf{3.30} & 35.04 & -1.16 & \textbf{1.74} & 70.30 & -1.57 & \textbf{2.35} \\ 
+Greece & 82.24 & -2.46 & \textbf{3.67} & 105.40 & -3.15 & \textbf{4.70} & 15.63 & -0.51 & \textbf{0.76} & 75.84 & -1.71 & \textbf{2.55} \\ 
+Poland & 24.83 & -0.63 & \textbf{0.94} & 48.30 & -1.23 & \textbf{1.83} & 30.05 & -0.99 & \textbf{1.48} & 46.29 & -0.84 & \textbf{1.26} \\ 
+Serbia & 29.79 & -0.89 & \textbf{1.33} & 45.96 & -1.38 & \textbf{2.05} & 29.12 & -0.97 & \textbf{1.44} & 40.74 & -0.82 & \textbf{1.22} \\ 
+Turkmenistan & 44.85 & -1.22 & \textbf{1.82} & 79.00 & -2.15 & \textbf{3.21} &  &  &  &  &  &  \\ 
+Belarus & 42.73 & -1.03 & \textbf{1.53} & 68.74 & -1.65 & \textbf{2.47} & 20.22 & -0.66 & \textbf{0.99} & 47.79 & -0.88 & \textbf{1.32} \\ 
+Turkey & 15.82 & -0.34 & \textbf{0.51} & 43.67 & -0.94 & \textbf{1.40} & 29.28 & -0.97 & \textbf{1.45} & 35.38 & -0.53 & \textbf{0.79} \\ 
+Azerbaijan & 24.92 & -0.71 & \textbf{1.06} & 43.23 & -1.23 & \textbf{1.83} & 24.73 & -0.83 & \textbf{1.23} & 45.51 & -0.85 & \textbf{1.27} \\ 
+Uzbekistan & 30.70 & -0.80 & \textbf{1.19} & 53.10 & -1.38 & \textbf{2.06} & 30.93 & -1.02 & \textbf{1.53} & 48.42 & -0.89 & \textbf{1.33} \\ 
+Romania & 30.29 & -0.92 & \textbf{1.37} & 52.18 & -1.58 & \textbf{2.35} & 26.75 & -0.89 & \textbf{1.32} & 43.57 & -0.91 & \textbf{1.36} \\ 
+Albania & 29.68 & -0.85 & \textbf{1.28} & 41.59 & -1.20 & \textbf{1.79} & 35.92 & -1.21 & \textbf{1.80} & 47.49 & -0.87 & \textbf{1.30} \\ 
+Bosnia & 13.58 & -0.46 & \textbf{0.68} & 36.43 & -1.22 & \textbf{1.83} & 27.97 & -0.94 & \textbf{1.41} & 38.85 & -0.80 & \textbf{1.20} \\ 
+Armenia & 28.53 & -0.91 & \textbf{1.36} & 35.47 & -1.13 & \textbf{1.69} & 27.41 & -0.91 & \textbf{1.36} & 48.29 & -1.05 & \textbf{1.57} \\ 
+Montenegro & 23.01 & -0.90 & \textbf{1.34} & 28.43 & -1.11 & \textbf{1.66} & 33.82 & -1.13 & \textbf{1.69} & 34.30 & -0.86 & \textbf{1.28} \\ 
+Croatia & 18.07 & -0.44 & \textbf{0.65} & 42.15 & -1.02 & \textbf{1.52} & 34.32 & -1.14 & \textbf{1.71} & 24.78 & -0.40 & \textbf{0.59} \\ 
+Kosovo & 7.21 & -0.18 & \textbf{0.27} & 36.71 & -0.93 & \textbf{1.38} & 32.24 & -1.07 & \textbf{1.60} & 38.85 & -0.68 & \textbf{1.01} \\ 
+%  Kyrgyzstan & 34.90 & -1.07 & 1.60 & 73.47 & -2.26 & 3.37 & 45.47 & -1.53 & 2.28 & 53.43 & -1.04 & 1.55 \\ 
+%Tajikistan & 33.83 & -1.29 & 1.93 & 62.63 & -2.39 & 3.57 & 55.62 & -1.89 & 2.82 & 76.78 & -1.71 & 2.56 \\ 
+%Bulgaria & 42.81 & -1.30 & 1.93 & 55.25 & -1.67 & 2.50 & 40.08 & -1.35 & 2.01 & 65.44 & -1.25 & 1.86 \\ 
+%Estonia & 53.59 & -1.42 & 2.12 & 84.83 & -2.25 & 3.35 & 26.78 & -0.88 & 1.31 & 68.89 & -1.36 & 2.04 \\ 
+%Ukraine & 42.81 & -1.39 & 2.07 & 68.42 & -2.21 & 3.30 & 35.04 & -1.16 & 1.74 & 70.30 & -1.57 & 2.35 \\ 
+%Greece & 82.24 & -2.46 & 3.67 & 105.40 & -3.15 & 4.70 & 15.63 & -0.51 & 0.76 & 75.84 & -1.71 & 2.55 \\ 
+%Poland & 24.83 & -0.63 & 0.94 & 48.30 & -1.23 & 1.83 & 30.05 & -0.99 & 1.48 & 46.29 & -0.84 & 1.26 \\ 
+%Serbia & 29.79 & -0.89 & 1.33 & 45.96 & -1.38 & 2.05 & 29.12 & -0.97 & 1.44 & 40.74 & -0.82 & 1.22 \\ 
+%Turkmenistan & 44.85 & -1.22 & 1.82 & 79.00 & -2.15 & 3.21 &  &  &  &  &  &  \\ 
+%Belarus & 42.73 & -1.03 & 1.53 & 68.74 & -1.65 & 2.47 & 20.22 & -0.66 & 0.99 & 47.79 & -0.88 & 1.32 \\ 
+%Turkey & 15.82 & -0.34 & 0.51 & 43.67 & -0.94 & 1.40 & 29.28 & -0.97 & 1.45 & 35.38 & -0.53 & 0.79 \\ 
+%Azerbaijan & 24.92 & -0.71 & 1.06 & 43.23 & -1.23 & 1.83 & 24.73 & -0.83 & 1.23 & 45.51 & -0.85 & 1.27 \\ 
+%Uzbekistan & 30.70 & -0.80 & 1.19 & 53.10 & -1.38 & 2.06 & 30.93 & -1.02 & 1.53 & 48.42 & -0.89 & 1.33 \\ 
+%Romania & 30.29 & -0.92 & 1.37 & 52.18 & -1.58 & 2.35 & 26.75 & -0.89 & 1.32 & 43.57 & -0.91 & 1.36 \\ 
+%Albania & 29.68 & -0.85 & 1.28 & 41.59 & -1.20 & 1.79 & 35.92 & -1.21 & 1.80 & 47.49 & -0.87 & 1.30 \\ 
+%Bosnia & 13.58 & -0.46 & 0.68 & 36.43 & -1.22 & 1.83 & 27.97 & -0.94 & 1.41 & 38.85 & -0.80 & 1.20 \\ 
+%Armenia & 28.53 & -0.91 & 1.36 & 35.47 & -1.13 & 1.69 & 27.41 & -0.91 & 1.36 & 48.29 & -1.05 & 1.57 \\ 
+%Montenegro & 23.01 & -0.90 & 1.34 & 28.43 & -1.11 & 1.66 & 33.82 & -1.13 & 1.69 & 34.30 & -0.86 & 1.28 \\ 
+%Croatia & 18.07 & -0.44 & 0.65 & 42.15 & -1.02 & 1.52 & 34.32 & -1.14 & 1.71 & 24.78 & -0.40 & 0.59 \\ 
+%Kosovo & 7.21 & -0.18 & 0.27 & 36.71 & -0.93 & 1.38 & 32.24 & -1.07 & 1.60 & 38.85 & -0.68 & 1.01 \\ 
+   \bottomrule \\ [-0.9em]
+\multicolumn{10}{l}{\parbox{0.845\textwidth}{\scriptsize
+\textit{Notes:} All values are in \%-changes (e.g., $I$-columns actually report $100 \Delta I/I$), and exclude nodes/edges within the 100km buffer zone. $I$ denotes the quality of infrastructure (time efficiency in reallocation and expansion match scenarios, speed in the upgrading scenario), $\eta$ is markdowns, and $L$ is employment. The changes in $\eta$ and $L$ are computed from changes in $I$ using Equations \ref{eq:dmd} and \ref{eq:djobs}, assuming $\alpha = 0.33$.}} % \\ \vspace{-10mm}
+\end{tabular}
+}
+\end{table}
+
+%% Reallocation Gains
+%% latex table generated in R 4.4.3 by xtable 1.8-4 package
+%% Mon Sep 29 13:11:56 2025
+%\begin{table}[ht]
+%\centering
+%\caption{Jobs Gains from Optimal Reallocation (\%)}
+%label{tab:jobs}
+%\begin{tabular}{lrrrrrrr}
+%  \toprule
+%country & nodes & edges & I\_orig & I\_new & I\_pch & jobs\_gains\_pch & markdown\_gains\_pch \\ 
+%  \midrule
+%Kyrgyzstan &   94 &  283 & 33.545 & 45.250 & 34.896 & 1.600 & 1.072 \\ 
+%  Tajikistan &   76 &  225 & 27.175 & 36.368 & 33.831 & 1.929 & 1.292 \\ 
+%  Bulgaria &   50 &  146 & 34.037 & 48.609 & 42.813 & 1.934 & 1.296 \\ 
+%  Estonia &   47 &  121 & 38.746 & 59.512 & 53.595 & 2.119 & 1.420 \\ 
+%  Ukraine &  318 & 1089 & 31.902 & 45.560 & 42.809 & 2.068 & 1.385 \\ 
+%  Greece &  119 &  188 & 34.463 & 62.806 & 82.241 & 3.668 & 2.458 \\ 
+%  Poland &  176 &  620 & 40.425 & 50.462 & 24.828 & 0.940 & 0.630 \\ 
+%  Serbia &   34 &   98 & 34.396 & 44.644 & 29.792 & 1.331 & 0.892 \\ 
+%  Turkmenistan &  226 &  756 & 37.710 & 54.623 & 44.849 & 1.823 & 1.222 \\ 
+%  Belarus &  110 &  370 & 42.596 & 60.799 & 42.733 & 1.533 & 1.027 \\ 
+%  Turkey &  380 & 1331 & 47.463 & 54.970 & 15.817 & 0.508 & 0.340 \\ 
+%  Azerbaijan &   56 &  154 & 36.231 & 45.258 & 24.916 & 1.056 & 0.707 \\ 
+%  Uzbekistan &  200 &  627 & 39.517 & 51.647 & 30.696 & 1.189 & 0.797 \\ 
+%  Romania &  117 &  389 & 34.098 & 44.426 & 30.286 & 1.366 & 0.915 \\ 
+%  Albania &   15 &   37 & 35.739 & 46.347 & 29.684 & 1.275 & 0.854 \\ 
+%  Bosnia &   23 &   61 & 30.774 & 34.953 & 13.581 & 0.681 & 0.456 \\ 
+%  Armenia &   13 &   26 & 32.409 & 41.656 & 28.532 & 1.356 & 0.908 \\ 
+%  Montenegro &    8 &   15 & 26.624 & 32.750 & 23.010 & 1.340 & 0.898 \\ 
+%  Croatia &   42 &   73 & 42.343 & 49.995 & 18.073 & 0.652 & 0.437 \\ 
+%  Kosovo &    6 &   11 & 40.650 & 43.581 & 7.211 & 0.271 & 0.182 \\ 
+%   \bottomrule
+%\end{tabular}
+%\end{table}
+
+\vspace{1cm}
+
+Table \ref{tab:jobs} indicates that optimal reallocation of existing infrastructure yields a positive \%-change in the quality of population weighted links---of 33\% increase in the average country, ranging from a 7.2\% increase in Kosovo to a 82.2\% increase in Greece. It is thus another statistic we may use to gauge the extent of misallocation to scarcely populated regions. Applying Equations \ref{eq:dmd} and \ref{eq:djobs}, these increases in infrastructure quality along central links could increase the number of jobs by 1.4\% on average, ranging from a 0.3\% increase in Kosovo to a 3.7\% increase in Greece. \newline
+
+Since reallocation of existing infrastructure is only a hypothetical scenario, these scenarios matching these welfare gains by optimal expansion and upgrading of infrastructure are more relevant. In both cases, population weighted infrastructure quality increases substantially---by 55\% on average in the expansion match, and by 50\% in the upgrading match scenarios. The jobs gains are also higher, amounting to 2.4\% on average in the expansion case and 1.5\% on average in the upgrading case. The changes in markdowns are smaller by a constant factor 0.67, or, conversely, multiplying markdown changes by 1.5 yields job changes under the decreasing returns to labor ($\alpha = 0.33$) technology. 
+
+\section{Optimal Investments in ECA's Transport Network}
+
+Apart from national network inefficiencies, I also consider the transport network of the entire macro-region and simulate optimal investments into it. To do this, I first select the largest cities with a population above 250,000 that are at least 50$km$ apart from each other, using data from the Simplemaps World Cities Database \citep{simplemaps} built from authoritative sources. This yields 281 key cities. I then use OSRM to obtain fastest car routes between them, and intersect and process their geometries following \citet{krantz2024optimal} to obtain an undirected graph representation of the continental road network comprising 952 nodes and 1722 edges. I assign to each node city populations within 30$km$ of that node, and calibrate its productivity as the inverse-distance weighted GDP per capita in 2017 PPP terms across all cell-centroids within 50$km$ of the node using the 0.25$^\circ$ data by \citet{LGEAW}. I also reparameterize each edge with the road distance and travel time from OSRM. Furthermore, I apply a network finding algorithm following \citet{krantz2024optimal} to the network to find high-potential new/missing links in the network and verify that they can be constructed. This yields 274 potential links, highlighted in green in Figure \ref{fig:ECAnet}, which would decrease road distance by at least 50\% along the nodes it connects. 
+
+
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAnet} ECA's Transport Network Graph}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/trans_ECA_network_actual_discretized_gravity_new_roads_real_edges.pdf"}
+\scriptsize 
+\emph{Notes:} Figure shows ECA transport network connecting 281 key cities (blue dots), including proposed links in green.
+\end{figure}
+
+The average route efficiency across existing links is 0.8, and I assume that the same holds for proposed links. Thus, their length is assumed $1/0.8 = 1.25$ times longer than the geodesic distance spanned by them. Figure \ref{fig:ECAnet} also visualizes a normalized sum of gravity along the existing links, which is the sum, across all routes using a particular link of the product of origin and destination city populations divided by the road distance. Thus, it is a measure of the expected traffic along the link, assuming open borders. In this regard, I also note that the Ukraine-Russia border is presently closed and OSRM does not route across it. Consequently, roads crossing it are not part of the existing network, but the network finding algorithm found several links reconnecting Russia to Ukraine. Since much physical infrastructure was destroyed in the war, it may be sensible to assume that these links need to be rebuilt, although at a lower cost than new roads. \newline 
+
+Speaking of which, I also estimate the cost of constructing/upgrading each link following \citet{krantz2024optimal} using an equation of the form
+\begin{equation} \label{eq:COST}
+\ln\left(\frac{\text{cost}}{km}\right) = \ln(X) -0.11 (\text{dist} > 50km) + 0.12 \ln(\text{rugg}) + 0.085 \ln\left(\frac{\text{pop}}{km^2}\right),
+\end{equation}
+where $X = $100,000 for new links and lower for different types of upgrades following \citet{krantz2024optimal} and information in the ROCKS database \citep{rocks2018}. Appendix Figure \ref{fig:ECAcalibdet} visualizes various network calibration details discussed above. Ostensibly, the network is Western Europe is much better and faster than in Eastern Europe, Russia, and Central Asia. 
+
+
+\subsection{Optimal Investments in Partial Equilibrium}
+
+To analyze the cost-benefit of building/upgrading each link, I simulate the total gains in market access (MA) from upgrading each link, divided by the cost of upgrading it. The MA of each node is computed as the inverse-travel time weighted sum of GDP of all other nodes, and total MA is the simple sum of MA across all nodes. Total MA is thus denominated in dollars per minute of travel time, and the gains per investment are denominated in dollars per minute per dollar invested. \newline 
+
+Figure \ref{fig:ECAMAPG} shows the return in dollars per minute per dollar invested from building/upgrading each link individually to allow a travel speed of 100$km/h$, while keeping all other links at their original speed. It is thus a partial equilibrium result, as all other links are kept fixed. Ostensibly, re-establishing connectivity along the Russia-Ukraine border yields the highest marginal returns, but also upgrading major transport routes, especially to the major metropoles Moscow and Istanbul, but also to various Western European cities like Rotterdam and Paris, yields high marginal returns. 
+
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAMAPG} Market Access Gains per Dollar Invested}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/PE/trans_ECA_network_MA_gain_all_100kmh_pusd_yl_or_rd.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/PE/trans_ECA_network_MA_gain_all_100kmh_pusd_cons_MAg0.1.pdf"}
+\scriptsize 
+\emph{Notes:} Figure shows MA gains in dollars per minute per dollar invested in building/upgrading the respective link. The bottom half highlight high-yield links with return $>$0.1 \$/min/\$ using a stronger colour gradient. 
+\end{figure}
+
+The bottom panel of Figure \ref{fig:ECAMAPG} highlights high-yield with a return of $>$0.1 \$/min/\$ using a stronger colour gradient. It reveals that the extremely high-yield segments in red are almost always close to major city centers, at least in Western Europe. In Eastern Europe upgrading the road to Moscow, from Dresden via Warsaw and Minsk, also yields very high returns along extended segments, e.g. between Wroclaw and Lodz in Poland or between Brest and Minsk in Belarus. The other high-return road is the one passing through Eastern Europe down to Istanbul, via Munich, Vienna, Budapest, Belgrade, and Sofia. Here mostly smaller segments, e.g. between Bratislava and Gyor, or in the vicinity of Belgrade, would yield high MA gains if upgraded. \newline 
+
+A caveat of the analysis so far is the unrealistic assumption of open borders throughout the entire region, which is true for the Schengen Area, but not for Eastern Europe or Central Asia. % Thus, additional analysis should take into consideration estimates of border frictions, particularly before prioritizing transnational links. 
+
+\subsection{Optimal Investments in General Equilibrium}
+
+I also consider the optimal general equilibrium spending of a fixed budget on extending and upgrading the network using the quantitative framework of \citet{fajgelbaum2020optimal}. According to my cost estimates, the entire network admits investments of 74.1 billion 2015 USD, of which 51.6 billion fall on upgrading existing links, and 22.5 billion on constructing the 274 proposed links. \newline 
+
+I thus run simulations with investment budgets of 10 and 25 billion to create informative resource allocation problems. In terms of model parameterization, I follow the gridded approach above except that the infrastructure $I_{jk}$ is given in terms of speed ($km/h$) instead of time efficiency, and bounded between the current speed and 100$km/h$. As in \citet{krantz2024optimal}, the estimated per-$km/h$ infrastructure building cost $\delta^I_{jk}$ is the estimated cost of upgrading a link (length times cost/km give in Appendix Figure \ref{fig:ECAcalibdet}) divided by the difference of $I_{jk}$ from 100$km/h$, assuming that investing the estimated amount will bring a link to 100$km/h$. Another difference to the gridded approach are the values of $\gamma$ and $\beta$, which, due to the larger network size, and numerical issues with lower parameter values, are set to $\beta = 1$ and $\gamma = 1.2$ reflecting the more likely increasing returns case for large networks. In particular, setting $\beta = 1$ is crucial to achieve convergence. Despite being a bit ad-hoc, these values are close to \citet{graff2024spatial}, who sets $\gamma = 0.946$ and $\beta = 1.177$. \newline 
+
+The productivity calibration again follows \citet{armington1969theory} and \citet{fajgelbaum2020optimal}: I let 25 key cities produce different products and divide the remaining cities into 4 quartiles by population. Thus, in total there are 29 products traded across the network differentiated by origin. Like \citet{fajgelbaum2020optimal}, I assume that the cross-goods congestion applies. \newline 
+
+
+Figure \ref{fig:ECAGE10B} shows the optimal \$10B investment allocation. In Western Europe, some funds are spent on building selected new links, whereas in Eastern Europe a combination of new links and upgrades is chosen. Notably, all links connecting Russio to Ukraine are restored, and also a large 
+
+
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAGE10B} Optimal \$10 Billion Network Investment Allocation}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_10b_fixed_irs_cgc_sigma3.8_rho0_perc_ug.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_10b_fixed_irs_cgc_sigma3.8_rho0_upw_gain.pdf"}
+\scriptsize 
+\emph{Notes:} Top panel shows optimal 10 billion 2015 USD network investment in terms of the percentage of proposed construction/upgrading work completed on each link. The bottom panel shows the corresponding welfare gains. \\ \vspace{-5mm}
+\end{figure}
+
+\noindent new road connecting St. Petersburg in Russia to Tallinn in Estonia is built. Very little infrastructure on the other hand is built in Central Asia, in fact, only a few links on the east side of the Caspian Sea are upgraded. This is likely due to Central Asia's sparse population and low productivity. \newline 
+
+The bottom panel of Figure \ref{fig:ECAGE10B} provides the welfare gains in each node. The highest gains of up to 2\% are realized in Ukraine in places that are now a war zone. Gains in western Europe are small, generally below 0.5\%, and there are some mild losses, e.g. in central parts of Germany, due to economic activity shifting to the east. It is notably that Central Asia, despite receiving no mentionable investments, still reaps high welfare gains as the investments in Eastern Europe increase connectivity and trade between Western Europe and Central Asia. This is also apparent from the model-implied trade flows, visualized for four key cities in the top panel of Appendix Figure \ref{fig:ECAGETF}: Despite little production and trade from Tashkent, Uzbekistan, the infrastructure investments enable greater trade flows with Moscow, Paris, and Istanbul. 
+
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAGE25B} Optimal \$25 Billion Network Investment Allocation}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_25b_fixed_irs_cgc_sigma3.8_rho0_perc_ug.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_25b_fixed_irs_cgc_sigma3.8_rho0_upw_gain.pdf"}
+\scriptsize 
+\emph{Notes:} Top panel shows optimal 25 billion 2015 USD network investment in terms of the percentage of proposed construction/upgrading work completed on each link. The bottom panel shows the corresponding welfare gains. 
+\end{figure}
+
+Figure \ref{fig:ECAGE25B} visualizes an optimal \$25B investment. It broadly generates the same spatial patterns of infrastructure allocation and welfare gains, now including full upgrades of many roads in Russia and Eastern Europe and also (partial) upgrades of some Western European roads. \newline 
+
+Appendix Figures \ref{fig:ECAGE10BOU} and \ref{fig:ECAGE25BOU} additionally show optimal \$10B and \$25B investments where the planner is only allowed to upgrade roads. They yield broadly similar allocations as Figures \ref{fig:ECAGE10B} and \ref{fig:ECAGE25B}, with much more intensive upgrading in Eastern Europe and Russia. These should also serve as an important benchmark for policymakers, as most road projects today involve upgrading existing roads rather than fresh construction, and there may be important obstacles to building some of the 274 proposed links in the network other than a rudimentary assessment of geographic feasibility. 
+
+
+
+\section{Summary and Conclusion}
+
+
+This paper examines the extent of spatial misallocation of road infrastructure in 20 Eastern European and Central Asian (ECA) countries. It finds that the extent of such misallocation---from a perspective of welfare maximization in a neoclassical general-equilibrium spatial model following \citet{fajgelbaum2020optimal}---is considerable, and follws a dominant spatial pattern where too much is invested in commecting rural/remote communities at the expense of improved inter-city connectivity. The average welfare loss, using conservative parameters, is 0.37\%, and on average 38.6\% of this loss are attributable to misallocation between urban centers and the periphery. Although the welfare loss is small, it takes considerable investments to remedy. Our estimates from inverting the model imply an average 25\% network expansion (which includes the possibility of upgrading) or a 65\% network upgrading (average road quality increase) is needed to remedy the welfare loss from misallocation. \newline 
+
+We also estimate that misallocation led to 1.4\% less jobs in the average country, and implementing the compensating investments in terms of welfare would increase jobs by 2.4\% if done by network expansion and by 1.5\% if done only by upgrading. \newline 
+
+All of this suggests that mistakes have been made in the spatial prioritization of road network investments in the ECA region, and getting investments right in the first place is very beneficial. Thus, spatial economic models considering aggregate welfare, employment, and productivity should be taken into account---alongside social equity, environmental, and other considerations---when planing or allocating funds to major infrastructure projects. 
+
+
+
+\bibliographystyle{apacite}
+\bibliography{bibliography} % This links to a file bibliography.bib with the citations
+
+\newpage
+
+\appendix
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\section*{Appendix}
+
+Consider a representative firm producing output using labor $Y = AL^{\alpha}$ subject to decreasing returns $0 < \alpha < 1$. We assume labor is renumerated according to a fixed wage $\omega$, which is inflated by a markdown $\eta = 1 + \tau$, where $\tau$ is a compound measure of transport costs. Following \citet{hornbeck2024growth}, we assume that there exist market distortions due to too-high transport costs $\tau$ which introduce a wedge between the value marginal product of inputs and their marginal cost of inputs. In our simplified model, we assume that high transport costs increase labor's commute time/costs and are paid by the employer, inflating effective wages by the markdown $\eta$. \newline 
+
+\noindent The representative firm thus maximizes profits subject to labor costs:  
+\begin{equation}
+\underset{L}{max}\quad \Pi_{L}=PAL^{\alpha}-\omega \eta L
+\end{equation}
+The FOC's yield
+\begin{equation}
+\alpha PAL^{\alpha-1} = \omega \eta,
+\end{equation}
+And taking logs and differentiating w.r.t. $\eta$  yields
+%\begin{equation}
+%(\alpha-1)\log(L) = \log(\eta),
+% \end{equation}
+\begin{equation}
+\frac{\dot{L}}{L} = - \frac{1}{1-\alpha} \frac{\dot{\eta}}{\eta},
+\end{equation}
+which indicates that an increase in markdown decreases labor demanded by firms. Furthermore, log-differentiating $\eta = 1+\tau$, w.r.t. $\tau$ yields
+\begin{equation}
+\frac{\dot{\eta}}{\eta} = \frac{\tau}{1+\tau}\frac{\dot{\tau}}{\tau}.
+\end{equation}
+To express this in terms of changes in infrastructure, we simplify \citet{fajgelbaum2020optimal}'s model to $\tau = 0.5 / I^\gamma$, assuming fixed flows $Q = 1$ and $\delta^\tau = 0.5$ (which is reasonable according to Table \ref{tab:sstat}), such that $\log(\tau) \sim - \gamma\log(I)$ (using $\gamma = 0.169$) yielding
+\begin{equation}
+    \frac{\dot{\tau}}{\tau} = -\gamma\frac{\dot{I}}{I}.
+\end{equation}
+The assumption of fixed flows yields a lower bound of the effect on jobs, and also the assumption of fixed labor assumed throughout this paper diminishes the effect. \newline 
+
+% \todo[inline]{Ana: because flows are fixed, this is lower bound of effect (because flows usually change), and also because labour is mobile in reality.}
+% Ana original expression
+%\begin{equation}
+%\frac{\dot{L}}{L}=(\frac{t}{1+t})(\frac{1}{1-\alpha})\frac{\dot{t}}{t}
+%\end{equation}
+
+%\begin{equation}
+%\alpha PAL^{\alpha-1} = \omega (1+\tau),
+%\end{equation}
+%And taking logs and differentiating w.r.t. $\tau$  yields
+%\begin{equation}
+%(\alpha-1)\log(L) = \log(1+\tau),
+%\end{equation}
+%\begin{equation}
+%\frac{\dot{L}}{L} = - \frac{1}{1-\alpha} \frac{\tau}{1+\tau}\frac{\dot{\tau}}{\tau},
+%\end{equation}
+% which indicates that an increase in transport costs decreases labor demand by firms.
+% Ana original expression
+%\begin{equation}
+%\frac{\dot{L}}{L}=(\frac{t}{1+t})(\frac{1}{1-\alpha})\frac{\dot{t}}{t}
+%\end{equation}
+
+%\begin{equation}
+%\alpha\frac{PAL^{1(1-\alpha)}}{w}=(1+t)
+%\end{equation}
+
+%\begin{equation}
+%\frac{VMg_{Product}}{Mg_{Cost}}=\eta=(1+t)
+%\end{equation}
+
+%\begin{equation}
+%\frac{\dot{\eta}}{\eta}=(\frac{t}{\eta+t})(\frac{\dot{t}}{t})
+%end{equation}
+
+\newpage
+
+
+ \begin{figure}[H] % \vspace{-12mm}
+ \centering
+ \caption{\label{fig:Realloc} Welfare Gains from Optimal Reallocation: Top Countries}
+ \vspace{3mm}
+ \begin{adjustbox}{center}
+ \begin{tabular}{cc}
+  Estonia (0.68\%) & Kyrgyztan (0.64\%) \\
+ \includegraphics[width=0.6\textwidth, trim = {1cm 5cm 1cm 5cm}, clip]{"figures/grid_network/realloc_fixed_irs/EST_opt_realloc_irs.pdf"} &  \includegraphics[width=0.6\textwidth, trim = {1cm 5cm 1cm 5cm}, clip]{"figures/grid_network/realloc_fixed_irs/KGZ_opt_realloc_irs.pdf"} \\ 
+ Tajikistan (0.55\%) & Bulgaria (0.53\%) \\
+ \includegraphics[width=0.6\textwidth, trim = {1cm 5cm 1cm 4cm}, clip]{"figures/grid_network/realloc_fixed_irs/TJK_opt_realloc_irs.pdf"} &  \includegraphics[width=0.6\textwidth, trim = {1cm 5cm 1cm 5cm}, clip]{"figures/grid_network/realloc_fixed_irs/BGR_opt_realloc_irs.pdf"} \\ 
+ Ukraine (0.46\%) &  Turkmenistan (0.44\%) \\
+ \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 5cm}, clip]{"figures/grid_network/realloc_fixed_irs/UKR_opt_realloc_irs.pdf"} &  \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 5cm}, clip]{"figures/grid_network/realloc_fixed_irs/TKM_opt_realloc_irs.pdf"} \\ 
+ Poland (0.43\%) & Greece (0.4\%) \\
+ \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 5cm}, clip]{"figures/grid_network/realloc_fixed_irs/POL_opt_realloc_irs.pdf"} &  \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 4cm}, clip]{"figures/grid_network/realloc_fixed_irs/GRC_opt_realloc_irs.pdf"} \\ 
+  \end{tabular}
+ \end{adjustbox}
+ \end{figure}
+ 
+ 
+  \begin{figure}[H] % \ContinuedFloat % \vspace{-5mm}
+ \centering
+ \caption{\label{fig:Realloc} Welfare Gains from Optimal Reallocation: Top Countries (\emph{Continued})}
+ \vspace{3mm}
+ \begin{adjustbox}{center}
+ \begin{tabular}{cc}
+ Belarus (0.39\%) & Serbia (0.38\%) \\
+\includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 4cm}, clip]{"figures/grid_network/realloc_fixed_irs/BEL_opt_realloc_irs.pdf"} &  \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 2cm}, clip]{"figures/grid_network/realloc_fixed_irs/SRB_opt_realloc_irs.pdf"} \\
+    Turkey (0.38\%) & Azerbaijan (0.38\%) \\
+ \includegraphics[width=0.6\textwidth, trim = {3cm 3cm 3cm 7cm}, clip]{"figures/grid_network/realloc_fixed_irs/TUR_opt_realloc_irs.pdf"} &  \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 2cm}, clip]{"figures/grid_network/realloc_fixed_irs/AZE_opt_realloc_irs.pdf"} \\
+   Uzbekistan (0.34\%) & Romania (0.33\%) \\
+ \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 3cm}, clip]{"figures/grid_network/realloc_fixed_irs/UZB_opt_realloc_irs.pdf"} &  \includegraphics[width=0.6\textwidth, trim = {1cm 3cm 1cm 3cm}, clip]{"figures/grid_network/realloc_fixed_irs/ROU_opt_realloc_irs.pdf"} \\ 
+ \end{tabular}
+ \end{adjustbox}
+ \end{figure}
+
+  \begin{figure}[H]
+\centering
+\caption{\label{fig:ECAcalibdet} ECA Transport Network Calibration Details}
+\begin{tabular}{c}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/PE/trans_ECA_network_cell_GDPC_const_2017_PPP.pdf"} \\
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/PE/trans_ECA_network_average_link_speed.pdf"} \\
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/PE/trans_ECA_network_type_of_work.pdf"} \\
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/PE/trans_ECA_network_cost_km.pdf"}
+\end{tabular}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAGETF} Model-Generated Trade Flows After Optimal \$10B and \$25B Investments}
+
+After \$10B Optimal Investments \\
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_10b_fixed_irs_cgc_sigma3.8_rho0_good_flows_4_city.pdf"} \\ 
+After \$25B Optimal Investments \\
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_29g_25b_fixed_irs_cgc_sigma3.8_rho0_good_flows_4_city.pdf"} 
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAGE10BOU} Optimal \$10 Billion Network Investment Allocation $-$ Only Upgrades}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_ug_29g_10b_fixed_irs_cgc_sigma3.8_rho0_perc_ug.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_ug_29g_10b_fixed_irs_cgc_sigma3.8_rho0_upw_gain.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_ug_29g_10b_fixed_irs_cgc_sigma3.8_rho0_good_flows_4_city.pdf"}
+\scriptsize 
+\emph{Notes:} Top panel shows optimal 10 billion 2015 USD network investment in terms of the percentage of proposed upgrading completed. Middle panel shows the corresponding welfare gains. Bottom panel the generated trade flows. 
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\caption{\label{fig:ECAGE25BOU} Optimal \$25 Billion Network Investment Allocationn $-$ Only Upgrades}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_ug_29g_25b_fixed_irs_cgc_sigma3.8_rho0_perc_ug.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_ug_29g_25b_fixed_irs_cgc_sigma3.8_rho0_upw_gain.pdf"}
+\includegraphics[width=\textwidth, trim = {0.5cm 0.5cm 0.5cm 0.5cm}, clip]{"figures/GE/trans_ECA_network_GE_ug_29g_25b_fixed_irs_cgc_sigma3.8_rho0_good_flows_4_city.pdf"}
+\scriptsize 
+\emph{Notes:} Top panel shows optimal 25 billion 2015 USD network investment in terms of the percentage of proposed upgrading completed. Middle panel shows the corresponding welfare gains. Bottom panel the generated trade flows. 
+\end{figure}
+
+\end{document}
